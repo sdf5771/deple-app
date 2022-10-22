@@ -1,6 +1,7 @@
+import json
 from enum import Enum
 import uvicorn
-from app.DB.DB_crud import select
+from app.DB.DB_crud import DB_api
 import app
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,9 +12,12 @@ app = FastAPI()
 async def login(id: str, pw: str):
     sql= f'SELECT * FROM people WHERE id = \'{id}\' and pw = \'{pw}\''
     print(sql)
-    if select(sql):
-        return {'auth':'ok'} 
+    DB_instance = DB_api()
+    if DB_instance.login(sql=sql):
+        print(DB_instance.login(sql=sql))
+        return {'auth':'yes'}
     else:
+        print(DB_instance.login(sql=sql))
         return {'auth':'no'}
         
 @app.get("/")
@@ -47,10 +51,8 @@ if __name__ == '__main__':
 # async def get_model(model_name: ModelName):
 #     if model_name is ModelName.alexnet:
 #         return {"model_name": model_name, "message": "Deep Learning FTW!"}
-    
 #     if model_name.value == "lenet":
-#         return{"model_name": model_name, "message": "LeCNN all the images"}
-
+#         return {"model_name": model_name, "message": "LeCNN all the images"}
 #     return {"model_name": model_name, "message": "Have some residuals"}
 
 # @app.get("/files/{file_path:path}")

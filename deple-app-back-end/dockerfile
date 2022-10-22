@@ -2,17 +2,21 @@
 #어떤 환경에서 작업할 건지 설정
 FROM ubuntu:18.04
 
+
 #'HERMES_SERVER' 하위 디렉토리에 폴더 생성
-RUN mkdir -p /HERMES_SERVER
+RUN mkdir -p /deple-app-back-end
 
-# /app 으로 이동
-WORKDIR /app
+# WORKDIR /deple-app-back-end
 
-# 우분투리눅스 upgrade AND update
-# ADD -> local에서 파일 가져오기
-RUN ADD . /app/
+WORKDIR /deple-app-back-end
 
-#  Asia/Seoul 로 환경설정 / UTF-8 로 encode 설정
+# # /app 으로 이동
+
+# # 우분투리눅스 upgrade AND update
+# # ADD -> local에서 파일 가져오기
+ADD . /deple-app-back-end 
+
+# #  Asia/Seoul 로 환경설정 / UTF-8 로 encode 설정
 ENV TZ=Asia/Seoul\
     LANG="C.UTF-8" \
     LC_ALL="C.UTF-8" 
