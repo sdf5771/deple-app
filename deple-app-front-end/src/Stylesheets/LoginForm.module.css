@@ -50,5 +50,17 @@
     border-radius: 8px;
     border: 0;
     outline: none;
+    background-color: #eeeeee;
     color: #fff;
+    cursor: pointer;
+}
+.login_button:hover{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
+}
+.login_button:active{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
 }

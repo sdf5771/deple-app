@@ -3,6 +3,10 @@ import styles from '../../Stylesheets/LoginForm.module.css';
 import PublicInput from '../../Components/PublicInput';
 
 function LoginForm() {
+    function loginBtnOnClickHandler(event){
+
+    }
+
     return (
         <div className={styles.login_form_root}>
             <div className={styles.login_form_header}>
@@ -17,7 +21,7 @@ function LoginForm() {
                         <span>Forgot your password</span>
                     </div>
                     <div className={styles.login_form_btn_container}>
-                        <button id='' className={styles.login_button}></button>
+                        <button id='' onClick={loginBtnOnClickHandler} className={styles.login_button}>LOGIN</button>
                     </div>
                 </div>
             </div>
