@@ -10,7 +10,7 @@ class DB_api:
         self.conn = pymysql.connect(
         user='root', 
         passwd='root', 
-        host='127.0.0.1', 
+        host='localhost', 
         db='user', 
         charset='utf8'
         )
