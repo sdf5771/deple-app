@@ -1,8 +1,10 @@
 .login_form_root{
+    position: absolute;
     display: flex;
     flex-direction: column;
     width:100%;
     height: 100%;
+    transition: all 0.4s ease;
 }
 .login_form_header{
     margin-top: 40px;
@@ -53,6 +55,7 @@
     background-color: #eeeeee;
     color: #fff;
     cursor: pointer;
+    transition: all 0.4s ease;
 }
 .login_button:hover{
     background-color: #5881C0;
@@ -60,6 +63,71 @@
     cursor: pointer;
 }
 .login_button:active{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*JoinUsFormRoot*/
+.join_us_form_root{
+    position: absolute;
+    /*right: 500px;*/
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+    transition: all 0.4s ease;
+}
+.join_us_form_header{
+    margin-top: 40px;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+}
+.join_us_form_header > span{
+    font-size: 3rem;
+    font-family: monospace;
+    font-weight: 600;
+    color: black;
+}
+.join_us_form_body{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 40px);
+    height: calc(100% - 66px - 40px);
+}
+.join_us_form_input_container{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.join_us_form_btn_container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.join_us_button{
+    width: 300px;
+    height: 40px;
+    border-radius: 8px;
+    border: 0;
+    outline: none;
+    background-color: #eeeeee;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+.join_us_button:hover{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
+}
+.join_us_button:active{
     background-color: #5881C0;
     color: #fff;
     cursor: pointer;
