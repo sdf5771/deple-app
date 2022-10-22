@@ -48,7 +48,7 @@ function PublicInput({ InputId, InputClass, Type, PlaceHolder, DefaultVal}) {
     return (
         <div id={InputId ? InputId : ''} className={styles.public_input_root}>
             <div className={iconImageSelector}></div>
-            <input onFocus={inputFocusHandler} onBlur={inputBlurHandler} placeholder={PlaceHolder ? PlaceHolder : ""}/>
+            <input onFocus={inputFocusHandler} onBlur={inputBlurHandler} placeholder={PlaceHolder ? PlaceHolder : ""} maxLength='50'/>
         </div>
     );
 }

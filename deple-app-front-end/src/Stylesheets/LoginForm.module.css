@@ -24,15 +24,31 @@
     height: calc(100% - 66px - 40px);
 }
 .login_form_input_container{
-    margin-top: 20px;
-    padding-left: 30px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 30px);
+    width: 100%;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 .login_form_btn_container{
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+.login_form_btn_container > span{
+    cursor: pointer;
+}
+.login_form_btn_container > span:hover{
+    color: #5881C0;
+}
+.login_button{
+    width: 300px;
+    height: 40px;
+    border-radius: 8px;
+    border: 0;
+    outline: none;
+    color: #fff;
 }
