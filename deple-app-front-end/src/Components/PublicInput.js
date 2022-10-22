@@ -4,9 +4,11 @@ import styles from '../Stylesheets/PublicInput.module.css'
 /*
 * Type = "id", "password", "default"
 * */
-function PublicInput({ InputId, InputClass, Type, PlaceHolder, DefaultVal}) {
+function PublicInput({ InputId, Type, PlaceHolder}) {
+    const [inputVal, setInputVal] = React.useState('');
+    const onChange = (event) => {setInputVal(event.target.value);}
     let iconImageSelector = styles.input_image_default;
-
+    let inputType = 'text';
     function inputBlurHandler(event){
         if(Type === 'id'){
             event.target.previousElementSibling.classList.remove(styles.input_image_id_active);
@@ -14,6 +16,12 @@ function PublicInput({ InputId, InputClass, Type, PlaceHolder, DefaultVal}) {
         } else if(Type === 'password'){
             event.target.previousElementSibling.classList.remove(styles.input_image_password_active);
             event.target.previousElementSibling.classList.add(styles.input_image_password);
+        } else if(Type === 'mail'){
+            event.target.previousElementSibling.classList.remove(styles.input_image_mail_active);
+            event.target.previousElementSibling.classList.add(styles.input_image_mail);
+        } else if(Type === 'phone'){
+            event.target.previousElementSibling.classList.remove(styles.input_image_phone_active);
+            event.target.previousElementSibling.classList.add(styles.input_image_phone);
         } else if(Type === 'default'){
             event.target.previousElementSibling.classList.remove(styles.input_image_default_active);
             event.target.previousElementSibling.classList.add(styles.input_image_default);
@@ -28,6 +36,12 @@ function PublicInput({ InputId, InputClass, Type, PlaceHolder, DefaultVal}) {
         } else if(Type === 'password'){
             event.target.previousElementSibling.classList.remove(styles.input_image_password);
             event.target.previousElementSibling.classList.add(styles.input_image_password_active);
+        } else if(Type === 'mail'){
+            event.target.previousElementSibling.classList.remove(styles.input_image_mail);
+            event.target.previousElementSibling.classList.add(styles.input_image_mail_active);
+        } else if(Type === 'phone'){
+            event.target.previousElementSibling.classList.remove(styles.input_image_phone);
+            event.target.previousElementSibling.classList.add(styles.input_image_phone_active);
         } else if(Type === 'default'){
             event.target.previousElementSibling.classList.remove(styles.input_image_default);
             event.target.previousElementSibling.classList.add(styles.input_image_default_active);
@@ -40,24 +54,32 @@ function PublicInput({ InputId, InputClass, Type, PlaceHolder, DefaultVal}) {
             iconImageSelector = styles.input_image_id;
         } else if(Type === 'password'){
             iconImageSelector = styles.input_image_password;
+            inputType = 'password';
+        } else if(Type === 'mail'){
+            iconImageSelector = styles.input_image_mail;
+            inputType = 'email';
+        } else if(Type === 'phone'){
+            iconImageSelector = styles.input_image_phone;
+            inputType = 'tel';
         } else if(Type === 'default'){
             iconImageSelector = styles.input_image_default;
         }
     }
 
     return (
+
         <div id={InputId ? InputId : ''} className={styles.public_input_root}>
             <div className={iconImageSelector}></div>
-            <input onFocus={inputFocusHandler} onBlur={inputBlurHandler} placeholder={PlaceHolder ? PlaceHolder : ""} maxLength='50'/>
+            <input onChange={onChange} onFocus={inputFocusHandler} onBlur={inputBlurHandler}
+                   placeholder={PlaceHolder ? PlaceHolder : ""} value={inputVal} maxLength='50'
+                   type={Type === 'phone' || Type === 'password' || Type === 'mail'? inputType : 'text'}/>
         </div>
     );
 }
 PublicInput.propTypes = {
     InputId: propTypes.string,
-    InputClass: propTypes.string,
     Type: propTypes.string,
     PlaceHolder: propTypes.string,
-    DefaultVal: propTypes.string,
 };
 
 export default PublicInput;

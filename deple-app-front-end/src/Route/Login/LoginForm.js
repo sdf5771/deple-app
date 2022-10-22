@@ -41,7 +41,6 @@ function LoginForm() {
     async function loginBtnOnClickHandler(event){
         event.preventDefault();
         if(isClickState){
-            const data = { username: 'example' };
             const LoginIdInputVal = document.querySelector('#LoginIdInput > input').value;
             const LoginPwInputVal = document.querySelector('#LoginPwInput > input').value;
 
@@ -224,8 +223,8 @@ function LoginForm() {
                         <PublicInput InputId='JoinUsIdInput' Type="id" PlaceHolder='ID' />
                         <PublicInput InputId='JoinUsPwInput' Type="password" PlaceHolder='Password'/>
                         <PublicInput InputId='JoinUsNameInput' Type="default" PlaceHolder='Name' />
-                        <PublicInput InputId='JoinUsMailInput' Type="default" PlaceHolder='E-Mail'/>
-                        <PublicInput InputId='JoinUsContactInput' Type="default" PlaceHolder='Contact' />
+                        <PublicInput InputId='JoinUsMailInput' Type="mail" PlaceHolder='E-Mail'/>
+                        <PublicInput InputId='JoinUsContactInput' Type="phone" PlaceHolder='Contact' />
                     </div>
                     <div className={styles.join_us_form_btn_container} style={{ marginTop: '20px'}}>
                         <button onClick={createAccountClickHandler} className={styles.join_us_button}>CREATE ACCOUNT</button>
