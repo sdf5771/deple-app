@@ -1,10 +1,29 @@
 import React from 'react';
 import styles from '../../Stylesheets/LoginForm.module.css';
 import PublicInput from '../../Components/PublicInput';
-
+const param = {
+    key: process.env.REACT_APP_SERVER_URL,
+}
 function LoginForm() {
-    function loginBtnOnClickHandler(event){
-
+    async function loginBtnOnClickHandler(event){
+        const data = { username: 'example' };
+        const LoginIdInputVal = document.querySelector('#LoginIdInput > input').value;
+        const LoginPwInputVal = document.querySelector('#LoginPwInput > input').value;
+        console.log(`${"http://localhost:8000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`);
+        fetch(`${"http://localhost:8000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`, {
+            method: 'POST', // 또는 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('성공:', data);
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+            });
     }
 
     return (
