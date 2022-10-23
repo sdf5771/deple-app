@@ -1,11 +1,11 @@
-import React from 'react';
-import Feed from './Feed'
+import React from 'react'
 import TopBar from "../../Components/TopBar";
+import User from './User'
 import styles from "../../Stylesheets/MainApp.module.css";
 import MenuBar from "../../Components/MenuBar";
-import LoginCheck from "../../Components/LoginCheck";
+import LoginCheck from '../../Components/LoginCheck';
 
-function MainApp() {
+function Profile() {
     let loginToken = LoginCheck();
 
     if(loginToken){
@@ -15,7 +15,7 @@ function MainApp() {
                     <TopBar />
                     <div className={styles.app_body}>
                         <MenuBar />
-                        <Feed />
+                        <User />
                     </div>
                 </div>
             );
@@ -23,15 +23,6 @@ function MainApp() {
             window.location.href = '/login';
         }
     }
-    // return (
-    //     <div className={styles.app_root}>
-    //         <TopBar />
-    //         <div className={styles.app_body}>
-    //             <MenuBar />
-    //             <Feed />
-    //         </div>
-    //     </div>
-    // );
 }
 
-export default MainApp;
+export default Profile;

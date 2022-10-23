@@ -2,10 +2,13 @@ import React, {useEffect} from 'react';
 import styles from '../../Stylesheets/LoginForm.module.css';
 import PublicInput from '../../Components/PublicInput';
 import PublicMessageBox from '../../Components/PublicMessageBox';
+import { useCookies } from 'react-cookie'; // useCookies import
 
 function LoginForm() {
     const [formState, setFormState] = React.useState(0);
     const [isClickState, setIsClickState] = React.useState(true);
+    const [userCookies, setUserCookie] = useCookies(['userId']);
+    const [authCookies, setAuthCookie] = useCookies(['auth']);
 
     const formList = {
         0: <LoginFormRoot />,
@@ -67,17 +70,26 @@ function LoginForm() {
                 return
             }
 
-            console.log(`${"http://localhost:8000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`);
-            fetch(`${"http://localhost:8000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`, {
+            console.log(`${"http://localhost:13000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`);
+            fetch(`/login/${LoginIdInputVal}/${LoginPwInputVal}`, { //${"http://localhost:13000"}
                 method: 'GET', // 또는 'PUT'
-            })
-                .then((response) => response.json())
+            }) // throw new Error('Network response was not ok.');
+                .then((response) => {
+                    console.log('response ', response);
+                    if(response.ok){
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
                 .then((data) => {
                     console.log('성공:', data);
                     if(data.auth === 'yes'){
-                        alert('Login Root')
+                        setUserCookie('userId', data.id);
+                        setAuthCookie('auth', data.auth);
+
+                        window.location.href = '/';
                     } else if(data.auth === 'no'){
-                        alert('Login Failed Root');
+                        PublicMessageBox('로그인에 실패했어요. 아이디와 비밀번호를 확인해주세요.');
                     }
                 })
                 .catch((error) => {
@@ -162,29 +174,80 @@ function LoginForm() {
                 return;
             }
 
-            document.getElementById('joinUsFormRoot').animate({
-                right:['0', '500px']
-            },{
-                duration: 400,
-                easing: "ease",
-                iterations: 1,
-                fill: "both"
-            })
-            setTimeout(function(){
-                setFormState(0);
+            await createUserData();
 
-                setTimeout(function(){
-                    document.getElementById('loginFormRoot').animate({
-                        opacity:[0, 1]
-                    },{
-                        duration: 400,
-                        easing: "ease",
-                        iterations: 1,
-                        fill: "both"
-                    })
-                },1)
-            },400)
+            // document.querySelector('#goLoginBtn').click();
+
+            // document.getElementById('joinUsFormRoot').animate({
+            //     right:['0', '500px']
+            // },{
+            //     duration: 400,
+            //     easing: "ease",
+            //     iterations: 1,
+            //     fill: "both"
+            // })
+            // setTimeout(function(){
+            //     setFormState(0);
+            //
+            //     setTimeout(function(){
+            //         document.getElementById('loginFormRoot').animate({
+            //             opacity:[0, 1]
+            //         },{
+            //             duration: 400,
+            //             easing: "ease",
+            //             iterations: 1,
+            //             fill: "both"
+            //         })
+            //     },1)
+            // },400)
         }
+    }
+
+    async function createUserData(){
+        const JoinUsIdInputVal = document.querySelector('#JoinUsIdInput > input').value;
+        const JoinUsPwInputVal = document.querySelector('#JoinUsPwInput > input').value;
+        const JoinUsNameInputVal = document.querySelector('#JoinUsNameInput > input').value;
+        const JoinUsMailInputVal = document.querySelector('#JoinUsMailInput > input').value;
+        const JoinUsContactInputVal = document.querySelector('#JoinUsContactInput > input').value;
+
+        let createUserObj = {
+            userId : JoinUsIdInputVal.value,
+            userPw: JoinUsPwInputVal.value,
+            name: JoinUsNameInputVal.value,
+            mail: JoinUsMailInputVal.value,
+            contact: JoinUsContactInputVal.value
+        }
+
+        console.log();
+
+        fetch(`/createUserData`, {
+            method: 'POST', // 또는 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(createUserObj),
+        }) // throw new Error('Network response was not ok.');
+            .then((response) => {
+                console.log('response ', response);
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then((data) => {
+                console.log('성공:', data);
+                if(data.auth === 'yes'){
+                    PublicMessageBox('회원가입에 성공했어요. 로그인 해주세요.');
+
+                    document.querySelector('#goLoginBtn').click();
+                } else if(data.auth === 'no'){
+                    PublicMessageBox('회원가입에 실패했어요.');
+                }
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+                PublicMessageBox('회원가입에 실패했어요.');
+            });
     }
 
     function goLoginClickHandler(event){
@@ -230,7 +293,7 @@ function LoginForm() {
                         <button onClick={createAccountClickHandler} className={styles.join_us_button}>CREATE ACCOUNT</button>
                     </div>
                     <div className={styles.join_us_form_btn_container} style={{ marginTop: '20px'}}>
-                        <button onClick={goLoginClickHandler} className={styles.join_us_button}>GO LOGIN</button>
+                        <button id="goLoginBtn" onClick={goLoginClickHandler} className={styles.join_us_button}>GO LOGIN</button>
                     </div>
                 </div>
             </div>

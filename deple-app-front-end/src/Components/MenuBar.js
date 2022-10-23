@@ -12,8 +12,18 @@ function MenuElement({ Type, TextContent, MenuElId, Activated }){
         }
     }
 
+    const onClick = (event) => {
+        event.preventDefault();
+        if(Type === 'home'){
+            window.location.replace('/');
+        } else if(Type === 'profile'){
+            window.location.replace('/profile');
+        }
+
+    }
+
     return (
-        <div id={MenuElId ? MenuElId : ""} className={styles.menu_element_root}>
+        <div id={MenuElId ? MenuElId : ""} className={styles.menu_element_root} onClick={onClick}>
             <div className={ Activated ? styles.menu_element_active : styles.menu_element_not_active}></div>
             <div className={elementImgSelector}></div>
             <div className={styles.menu_element_name_container}>
@@ -32,8 +42,7 @@ MenuElement.propTypes = {
 
 function MenuBar() {
     const [active, setActive] = React.useState(false);
-
-
+    let nowPath = window.location.pathname;
 
     return (
         <div id="MenuBarRoot" className={styles.menu_bar_root}>
@@ -41,8 +50,8 @@ function MenuBar() {
                 <span className={styles.menu_title}>MENU</span>
             </div>
             <div className={styles.menu_bar_body}>
-                <MenuElement MenuElId="homeMenuEl" Type="home" TextContent="Home" Activated={true} />
-                <MenuElement MenuElId="profileMenuEl" Type="profile" TextContent="Profile" Activated={false} />
+                <MenuElement MenuElId="homeMenuEl" Type="home" TextContent="Home" Activated={nowPath === '/' ? true : false} />
+                <MenuElement MenuElId="profileMenuEl" Type="profile" TextContent="Profile" Activated={nowPath === '/profile' ? true : false} />
             </div>
         </div>
     );

@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Home() {
+function User() {
     return (
-        <div><h1>hello i'm home</h1></div>
+        <div><h1>hello i'm User</h1></div>
     );
 }
 
-export default Home;
+export default User;
