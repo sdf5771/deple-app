@@ -1,4 +1,13 @@
 .feed_main_root{
+    display: flex;
+    flex-direction: column;
     width : calc(100% - 300px);
     height: 100%;
+}
+.feed_main_create_feed_container{
+    margin-top: 50px;
+    width: 100%;
+}
+.feed_main_body{
+    width: 100%;
 }

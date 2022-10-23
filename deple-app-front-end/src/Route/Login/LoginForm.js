@@ -112,14 +112,16 @@ function LoginForm() {
                 </div>
                 <div className={styles.login_form_body}>
                     <div className={styles.login_form_input_container}>
-                        <PublicInput InputId='LoginIdInput' Type="id" PlaceHolder='ID' />
-                        <PublicInput InputId='LoginPwInput' Type="password" PlaceHolder='Password'/>
+                        <PublicInput InputId='LoginIdInput' Type="id" PlaceHolder='Account' />
+                        <PublicInput InputId='LoginPwInput' Type="password" PlaceHolder='Password' callback={()=>{
+                            document.querySelector('#btnLogin').click();
+                        }}/>
                         <div className={styles.login_form_btn_container} style={{gap: '20px', marginTop: '20px'}}>
                             <span id='JoinUsBtn' onClick={joinUsClickHandler}>Join Us</span>
                             <span>Forgot your password</span>
                         </div>
                         <div className={styles.login_form_btn_container}>
-                            <button onClick={loginBtnOnClickHandler} className={styles.login_button}>LOGIN</button>
+                            <button id="btnLogin" onClick={loginBtnOnClickHandler} className={styles.login_button}>LOGIN</button>
                         </div>
                     </div>
                 </div>
@@ -211,16 +213,14 @@ function LoginForm() {
         const JoinUsContactInputVal = document.querySelector('#JoinUsContactInput > input').value;
 
         let createUserObj = {
-            userId : JoinUsIdInputVal.value,
-            userPw: JoinUsPwInputVal.value,
-            name: JoinUsNameInputVal.value,
-            mail: JoinUsMailInputVal.value,
-            contact: JoinUsContactInputVal.value
+            userId : JoinUsIdInputVal,
+            userPw: JoinUsPwInputVal,
+            name: JoinUsNameInputVal,
+            mail: JoinUsMailInputVal,
+            contact: JoinUsContactInputVal
         }
-
-        console.log();
-
-        fetch(`/createUserData`, {
+        console.log('JSON.stringify(createUserObj) ', createUserObj);
+        fetch(`/create`, {
             method: 'POST', // 또는 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -236,12 +236,12 @@ function LoginForm() {
             })
             .then((data) => {
                 console.log('성공:', data);
-                if(data.auth === 'yes'){
+                if(data.message === '생성완료'){
                     PublicMessageBox('회원가입에 성공했어요. 로그인 해주세요.');
 
                     document.querySelector('#goLoginBtn').click();
-                } else if(data.auth === 'no'){
-                    PublicMessageBox('회원가입에 실패했어요.');
+                } else {
+                    PublicMessageBox('회원가입에 실패했어요. 회원가입 정보를 확인해주세요.');
                 }
             })
             .catch((error) => {
@@ -283,7 +283,7 @@ function LoginForm() {
                 </div>
                 <div className={styles.join_us_form_body}>
                     <div className={styles.join_us_form_input_container}>
-                        <PublicInput InputId='JoinUsIdInput' Type="id" PlaceHolder='ID' />
+                        <PublicInput InputId='JoinUsIdInput' Type="id" PlaceHolder='Account' />
                         <PublicInput InputId='JoinUsPwInput' Type="password" PlaceHolder='Password'/>
                         <PublicInput InputId='JoinUsNameInput' Type="default" PlaceHolder='Name' />
                         <PublicInput InputId='JoinUsMailInput' Type="mail" PlaceHolder='E-Mail'/>
@@ -293,7 +293,7 @@ function LoginForm() {
                         <button onClick={createAccountClickHandler} className={styles.join_us_button}>CREATE ACCOUNT</button>
                     </div>
                     <div className={styles.join_us_form_btn_container} style={{ marginTop: '20px'}}>
-                        <button id="goLoginBtn" onClick={goLoginClickHandler} className={styles.join_us_button}>GO LOGIN</button>
+                        <button id="goLoginBtn" onClick={goLoginClickHandler} className={styles.join_us_button}>LOGIN PAGE</button>
                     </div>
                 </div>
             </div>

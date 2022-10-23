@@ -4,7 +4,7 @@ import styles from '../Stylesheets/PublicInput.module.css'
 /*
 * Type = "id", "password", "default"
 * */
-function PublicInput({ InputId, Type, PlaceHolder}) {
+function PublicInput({ InputId, Type, PlaceHolder, callback}) {
     const [inputVal, setInputVal] = React.useState('');
     const onChange = (event) => {setInputVal(event.target.value);}
     let iconImageSelector = styles.input_image_default;
@@ -66,11 +66,19 @@ function PublicInput({ InputId, Type, PlaceHolder}) {
         }
     }
 
+    function onKeyUp(event){
+        if(InputId === 'LoginPwInput'){
+            if(event.key === "Enter"){
+                callback();
+            }
+        }
+    }
+
     return (
 
         <div id={InputId ? InputId : ''} className={styles.public_input_root}>
             <div className={iconImageSelector}></div>
-            <input onChange={onChange} onFocus={inputFocusHandler} onBlur={inputBlurHandler}
+            <input onKeyUp={onKeyUp} onChange={onChange} onFocus={inputFocusHandler} onBlur={inputBlurHandler}
                    placeholder={PlaceHolder ? PlaceHolder : ""} value={inputVal} maxLength='50'
                    type={Type === 'phone' || Type === 'password' || Type === 'mail'? inputType : 'text'}/>
         </div>

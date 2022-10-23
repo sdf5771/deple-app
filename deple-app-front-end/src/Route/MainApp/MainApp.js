@@ -23,6 +23,7 @@ function MainApp() {
             window.location.href = '/login';
         }
     }
+
     // return (
     //     <div className={styles.app_root}>
     //         <TopBar />
