@@ -2,6 +2,21 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 50px;
-    background-color: black;
+    height: 56px;
+    background-color: #242526;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid #393B3D;
+}
+.top_bar_left_container{
+    padding-left: 20px;
+}
+.title_span{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: monospace;
+}
+.top_bar_right_container{
+
 }

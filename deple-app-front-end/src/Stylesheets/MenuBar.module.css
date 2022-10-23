@@ -1,5 +1,88 @@
 .menu_bar_root{
-    width: 100px;
+    min-width: calc(300px - 40px);
+    max-width: calc(300px - 40px);
     height: 100vh;
     display: flex;
+    flex-direction:column;
+    padding: 0 20px;
+}
+.menu_bar_header{
+    margin-top: 30px;
+}
+.menu_bar_header > .menu_title{
+    font-size: 2rem;
+    font-weight: 500;
+    color: #fff;
+    font-family: monospace;
+}
+.menu_bar_body{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/*menu elements*/
+.menu_element_root{
+    width: 100%;
+    height: 38px;
+    display: flex;
+    flex-direction: row;
+    background-color: inherit;
+    border-radius: 8px;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.menu_element_not_active{
+    width: 5px;
+    height: 60%;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: inherit;
+}
+.menu_element_active{
+    width: 5px;
+    height: 60%;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #5881C0;
+}
+.menu_element_root:hover{
+    background-color: #303031;
+}
+.menu_element_name_container{
+
+}
+.menu_element_name{
+    font-size:0.8rem;
+    font-weight: 300;
+    font-family:monospace;
+    color: #fff;
+}
+
+.menu_home_img{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../Image/Public_icons/home_icon.png);
+}
+
+.menu_profile_img{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../Image/Public_icons/profile_icon.png);
 }
