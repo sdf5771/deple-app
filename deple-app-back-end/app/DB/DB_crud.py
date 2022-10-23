@@ -26,6 +26,19 @@ class DB_api:
         finally:
             self.conn.close()
 
+    def create(self, sql):
+        self.connect()
+        rows = self.conn.cursor()
+        rows.execute(sql)
+        self.conn.commit()
+        try:
+            return rows.fetchall()
+        except Exception as e:
+            print(e)
+        finally:
+            self.conn.close()
+    
+
 
 # def conn():
 #     return pymysql.connect(
