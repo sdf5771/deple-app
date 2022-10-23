@@ -17,10 +17,10 @@ function TopBarElement({}){
 function TopBar() {
     return (
         <div id="TopBarRoot" className={styles.top_bar_root}>
-            <div>
-                <h1>hello i'm topbar title</h1>
+            <div className={styles.top_bar_left_container}>
+                <span className={styles.title_span}>DEPLE</span>
             </div>
-            <div>
+            <div className={styles.top_bar_right_container}>
 
             </div>
         </div>
