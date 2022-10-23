@@ -27,16 +27,15 @@ class DB_api:
             self.conn.close()
 
     def create(self, sql):
-        self.connect()
-        rows = self.conn.cursor()
-        rows.execute(sql)
-        self.conn.commit()
         try:
-            return rows.fetchall()
+            self.connect()
+            rows = self.conn.cursor()
+            rows.execute(sql)
+            self.conn.commit()
+            self.conn.close()
         except Exception as e:
             print(e)
-        finally:
-            self.conn.close()
+
     
 
 
