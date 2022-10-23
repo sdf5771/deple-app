@@ -22,15 +22,15 @@ async def login(id: str, pw: str):
         return jsonable_encoder(auth)
 
 class create_id(BaseModel):
-    id: str
-    pw: str
+    userId: str
+    userPw: str
     name: str
-    email: str
+    mail: str
     contact: str
 
 @app.post("/create")
 async def create(create_id: create_id):
-    sql = f'INSERT INTO `user`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.id}\',\'{create_id.pw}\',\'{create_id.name}\',\'{create_id.email}\',\'{create_id.email}\')'
+    sql = f'INSERT INTO `user`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.userId}\',\'{create_id.userPw}\',\'{create_id.name}\',\'{create_id.mail}\',\'{create_id.contact}\')'
     DB_instance = DB_api()
     
     try:
