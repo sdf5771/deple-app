@@ -16,7 +16,46 @@
     font-weight: 700;
     color: #fff;
     font-family: monospace;
+    cursor: pointer;
 }
 .top_bar_right_container{
 
+}
+
+
+/*LOGOUT Elements*/
+.top_Bar_logout_element{
+    margin-right: 12px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 12px;
+    gap: 4px;
+    cursor: pointer;
+}
+.top_Bar_logout_element:hover{
+    background-color: #4D4F50;
+}
+.top_Bar_logout_title_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.top_Bar_logout_title_div > span{
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+.top_Bar_logout_img{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px;
+    background-image: url(../Image/Public_icons/sign-out-alt.png)
 }
