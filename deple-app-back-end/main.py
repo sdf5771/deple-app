@@ -30,12 +30,15 @@ class create_id(BaseModel):
 
 @app.post("/create")
 async def create(create_id: create_id):
+    print(type(create_id.userId))
     sql = f'INSERT INTO `user`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.userId}\',\'{create_id.userPw}\',\'{create_id.name}\',\'{create_id.mail}\',\'{create_id.contact}\')'
     DB_instance = DB_api()
-    
     try:
+        print("시작")
         DB_instance.create(sql=sql)
+        print("끝")
     except Exception as e:
+        print("문제발생")
         return e
     return jsonable_encoder({'id': list([create_id]), 'message':'생성완료'})
         
