@@ -1,7 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styles from '../../Stylesheets/Feed.module.css'
-import CreateFeed from "../../Components/CreateFeed";
+import {CreateFeed, CreateFeedModal} from "../../Components/CreateFeed";
+
 
 function Feed() {
     return (
@@ -10,7 +11,7 @@ function Feed() {
                 <CreateFeed />
             </div>
             <div className={styles.feed_main_body}>
-                
+
             </div>
         </div>
     );
