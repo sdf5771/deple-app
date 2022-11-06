@@ -71,8 +71,17 @@ function LoginForm() {
             }
 
             console.log(`${"http://localhost:13000"}/login/${LoginIdInputVal}/${LoginPwInputVal}`);
-            fetch(`/login/${LoginIdInputVal}/${LoginPwInputVal}`, { //${"http://localhost:13000"}
-                method: 'GET', // 또는 'PUT'
+            let data = {
+                id: LoginIdInputVal,
+                pw: LoginPwInputVal,
+            };
+            fetch(`/login`, { //${"http://localhost:13000"}
+                method: 'POST', // 또는 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data),
             }) // throw new Error('Network response was not ok.');
                 .then((response) => {
                     console.log('response ', response);
