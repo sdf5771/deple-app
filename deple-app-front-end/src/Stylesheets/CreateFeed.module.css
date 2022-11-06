@@ -128,13 +128,18 @@
     padding: 0 20px;
     justify-content: flex-start;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
 }
 .create_feed_modal_user_icon_container{
     margin-left: 20px;
     width: 40px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background-image: url(../Image/Public_icons/feed_user_icon_default.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .create_feed_modal_user_name{
     display: flex;
