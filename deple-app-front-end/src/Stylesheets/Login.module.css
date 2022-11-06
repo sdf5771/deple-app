@@ -42,17 +42,23 @@
     font-family: monospace;
 }
 .login_information_content{
-    margin-top: 20px;
+    margin-top: 40px;
     padding: 0 20px 0 50px;
     width: calc(100% - 70px);
+    height: 1rem;
     display: flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 .login_information_content > span{
+    position: relative;
     color: #fff;
     font-size: 1rem;
     font-family: monospace;
+    animation: 5s slide infinite;
 }
 
 .login_form_container{
@@ -63,38 +69,14 @@
     border-radius: 32px;
 }
 
-/*Slide Text Box CSS*/
-.slide_box_root{
-    width: fit-content;
-    height: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overfloy-y: hidden;
-}
-.slide_box_content_div{
-    position: absolute;
-    /*top: 0;*/
-    /*left: 0;*/
-    animation: 3s slide infinite;
-}
-.slide_box_content_text{
-    color: #fff;
-    font-size: 1rem;
-    font-family: monospace;
-}
-
 @keyframes slide {
     0% {
         top: 0;
     }
     25% {
-        top: -1.2em;
+        top: -1.2rem;
     }
     50% {
-        top: -2.4em;
-    }
-    75% {
-        top: -3.6em;
+        top: 0;
     }
 }
