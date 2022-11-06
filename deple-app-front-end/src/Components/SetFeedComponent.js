@@ -18,11 +18,16 @@ function SetFeedComponent({data}){
                 </div>
             </div>
             <div className={styles.feed_component_body}>
-                <span className={styles.feed_component_content_text}>{data.feed_content}</span>
+                <textarea
+                    className={styles.feed_component_content_text}
+                    onMouseOver={event => {event.target.style.height = `${event.target.scrollHeight}px`}}
+                    onMouseLeave={event => {event.target.style.height = '100px'}}
+                    value={data.feed_content}
+                    readOnly={true}></textarea>
             </div>
             <div className={styles.feed_component_response_body}>
-                <div className={styles.feed_component_response_content}><span>좋아요</span></div>
-                <div className={styles.feed_component_response_content}><span>댓글달기</span></div>
+                <div className={styles.feed_component_response_content}><div className={styles.feed_like}></div><span>좋아요</span></div>
+                <div className={styles.feed_component_response_content}><div className={styles.feed_comments}></div><span>댓글달기</span></div>
             </div>
         </div>
     )

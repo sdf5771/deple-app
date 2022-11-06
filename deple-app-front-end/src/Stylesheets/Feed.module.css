@@ -3,6 +3,7 @@
     flex-direction: column;
     width : calc(100% - 260px - 200px);
     height: 100%;
+    overflow: auto;
 }
 .feed_main_create_feed_container{
     margin-top: 50px;
@@ -13,4 +14,16 @@
     flex-direction: column;
     width: 100%;
     gap: 12px;
+}
+.feed_main_root::-webkit-scrollbar {
+    width: 1px;
+}
+.feed_main_root::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+}
+.feed_main_root::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
 }

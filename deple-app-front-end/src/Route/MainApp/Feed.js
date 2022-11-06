@@ -22,8 +22,6 @@ function Feed() {
 
     themeDataArr.push(themeData);
 
-
-
     function getFeedAjax(){
         fetch(`/feed_select`, { //${"http://localhost:13000"}
             method: 'GET', // 또는 'PUT'
@@ -38,7 +36,6 @@ function Feed() {
             .then((data) => {
                 console.log('성공:', data);
                 if(data.message === '출력완료'){
-                    console.log(data.feed);
                     setFeedData(data.feed);
                 }
             })
