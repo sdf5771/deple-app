@@ -1,7 +1,7 @@
 .feed_main_root{
     display: flex;
     flex-direction: column;
-    width : calc(100% - 300px);
+    width : calc(100% - 260px - 200px);
     height: 100%;
 }
 .feed_main_create_feed_container{

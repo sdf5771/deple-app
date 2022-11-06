@@ -6,6 +6,7 @@ import MenuBar from "../../Components/MenuBar";
 import LoginCheck from "../../Components/LoginCheck";
 import { useSelector, useDispatch } from 'react-redux';
 import {CreateFeedModal} from '../../Components/CreateFeed';
+import AsideBar from "../../Components/AsideBar";
 
 function MainApp() {
     const createFeedModalClick = useSelector(state => state.createFeedModalClickReducer);
@@ -19,6 +20,7 @@ function MainApp() {
                     <div className={styles.app_body}>
                         <MenuBar />
                         <Feed />
+                        <AsideBar />
                     </div>
                     {createFeedModalClick.isClick ? <CreateFeedModal /> : null}
                 </div>

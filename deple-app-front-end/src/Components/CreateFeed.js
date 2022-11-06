@@ -1,10 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styles from '../Stylesheets/CreateFeed.module.css'
+import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import PublicMessageBox from "./PublicMessageBox";
 
 function CreateFeedModal(){
+    const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const createFeedModalDispatch = useDispatch();
     const [textareaVal, useTextAreaVal] = React.useState('');
     function TextareaOnChangeHandler(event){
@@ -35,7 +37,7 @@ function CreateFeedModal(){
 
                         </div>
                         <div className={styles.create_feed_modal_user_name}>
-                            <span>USERNAME</span>
+                            <span>{cookies.userId}</span>
                         </div>
                     </div>
                     <div className={styles.create_feed_modal_content_container}>

@@ -1,6 +1,6 @@
 .menu_bar_root{
-    min-width: calc(300px - 40px);
-    max-width: calc(300px - 40px);
+    min-width: calc(260px - 40px);
+    max-width: calc(260px - 40px);
     height: 100vh;
     display: flex;
     flex-direction:column;
@@ -54,6 +54,10 @@
     border-bottom-right-radius: 4px;
     background-color: #5881C0;
     transition: all 0.4s ease;
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s; /* Firefox */
+    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
+    -o-animation: fadein 1.5s; /* Opera */
 }
 .menu_element_root:hover{
     background-color: #303031;
@@ -87,4 +91,37 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../Image/Public_icons/profile_icon.png);
+}
+/*animation keyframes*/
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
