@@ -15,11 +15,52 @@ function CreateFeedModal(){
     function feedModalbackGroundClickHandler(event){
         createFeedModalDispatch({ type : 'CreateFeedModalBackground click'});
     }
+
+    function createFeedAjax(){
+        console.log('textareaVal ', textareaVal);
+        let data = {
+            create_user: cookies.userId,
+            feed_content: textareaVal
+        };
+
+        console.log('data ', data);
+        fetch(`/create_feed`, { //${"http://localhost:13000"}
+            method: 'POST', // 또는 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data),
+        }) // throw new Error('Network response was not ok.');
+            .then((response) => {
+                console.log('response ', response);
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then((data) => {
+                console.log('성공:', data);
+                if(data.message === '피드 생성완료'){
+                    PublicMessageBox('피드가 게시되었습니다.');
+
+                    createFeedModalDispatch({ type : 'CreateFeedModalBackground click'});
+                }
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+
+                PublicMessageBox('피드 생성에 실패했어요. 관리자에게 문의해주세요.');
+                setTimeout(function(){
+                }, 1500)
+            });
+    }
+
     function createFeedbtnClickHandler(event){
         if(textareaVal.length === 0){
             PublicMessageBox('게시할 피드의 내용을 입력해주세요');
         } else {
-            PublicMessageBox('피드가 게시되었습니다.');
+            createFeedAjax();
         }
     }
     return (
