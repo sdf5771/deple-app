@@ -1,11 +1,13 @@
+from uuid import UUID , uuid4
 
-c = ikcute_df
-print(c)
-# # df = vaex
-# print(os.path.dirname('C:\origami'))
-# if os.path.lexists('C:\origami'):
-#     print("Yes")
+session = uuid4()
+data = SessionData(username=name)
 
+class SessionData(BaseModel):
+    username: str
 
+    await backend.create(session, data)
+    cookie.attach_to_response(response, session)
 
-
+if __name__=="__main__":
+    print(data)
