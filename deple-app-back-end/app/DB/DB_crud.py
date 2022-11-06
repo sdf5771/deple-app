@@ -17,7 +17,7 @@ class DB_api:
 
     def select(self, sql, db_name):
         self.connect(db_name)
-        rows = self.conn.cursor()
+        rows = self.conn.cursor(pymysql.cursors.DictCursor)
         rows.execute(sql)
         try:
             return rows.fetchall()

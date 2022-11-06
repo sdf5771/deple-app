@@ -62,11 +62,10 @@ async def create(create_feed: create_feed):
 def feed_select():
     sql= 'SELECT * FROM table2'
     DB_instance = DB_api()
-    print(jsonable_encoder(DB_instance.select(sql=sql, db_name='feed'))) 
     try:
-        return jsonable_encoder({'feed': list(DB_instance.select(sql=sql, db_name='feed')), 'message':'출력완료'})
+        return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'출력완료'})
     except Exception as e:
         return e
 
 if __name__ == '__main__':
-    uvicorn.run(app, port=13000, host='0.0.0.0')
+    uvicorn.run(app, port=8000, host='0.0.0.0')
