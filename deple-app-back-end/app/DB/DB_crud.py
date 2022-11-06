@@ -6,17 +6,17 @@ class DB_api:
     def __init__(self):
         self.conn = None
     
-    def connect(self):
+    def connect(self,db_name):
         self.conn = pymysql.connect(
         user='root', 
         passwd='root', 
         host='127.0.0.1', 
-        db='user', 
+        db=db_name, 
         charset='utf8'
         )
 
-    def login(self, sql):
-        self.connect()
+    def select(self, sql, db_name):
+        self.connect(db_name)
         rows = self.conn.cursor()
         rows.execute(sql)
         try:
@@ -26,45 +26,12 @@ class DB_api:
         finally:
             self.conn.close()
 
-    def create(self, sql):
+    def create(self, sql, db_name):
         try:
-            self.connect()
+            self.connect(db_name)
             rows = self.conn.cursor()
             rows.execute(sql)
             self.conn.commit()
             self.conn.close()
         except Exception as e:
             print(e)
-
-    
-
-
-# def conn():
-#     return pymysql.connect(
-#         user='root', 
-#         passwd='root', 
-#         host='127.0.0.1', 
-#         db='user', 
-#         charset='utf8mb4_bin'
-#         )
-
-# def select(sql):
-#     conn = conn()
-#     with conn:
-#         with conn.cursor() as cur:
-#             try:
-#                 cur.execute(sql)
-#                 return json.dumps(cur.fetchall())
-#             except exception as e:
-#                 print(e)
-#             finally:
-#                 conn.close()
-
-# def select(conn,sql):
-#     sql = "SELECT * FROM people"
-#     with conn:
-#         with conn.cursor() as cur:
-#             cur.execute(sql)
-#             return json.dumps(cur.fetchall())
-# sql = ''
-# print(select(db_connect,sql))
