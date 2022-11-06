@@ -9,5 +9,8 @@
     width: 100%;
 }
 .feed_main_body{
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 12px;
 }

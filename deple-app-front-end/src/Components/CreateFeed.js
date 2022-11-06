@@ -12,7 +12,7 @@ function CreateFeedModal(){
     function TextareaOnChangeHandler(event){
         useTextAreaVal(event.target.value);
     }
-    function feedModalbackGroundClickHandler(event){
+    function feedModalBackGroundClickHandler(event){
         createFeedModalDispatch({ type : 'CreateFeedModalBackground click'});
     }
 
@@ -56,7 +56,7 @@ function CreateFeedModal(){
             });
     }
 
-    function createFeedbtnClickHandler(event){
+    function createFeedBtnClickHandler(event){
         if(textareaVal.length === 0){
             PublicMessageBox('게시할 피드의 내용을 입력해주세요');
         } else {
@@ -65,7 +65,7 @@ function CreateFeedModal(){
     }
     return (
         <div id="CreateFeedModal" className={styles.create_feed_modal_root}>
-            <div className={styles.modal_background} onClick={feedModalbackGroundClickHandler}></div>
+            <div className={styles.modal_background} onClick={feedModalBackGroundClickHandler}></div>
             <div className={styles.create_feed_modal}>
                 <div className={styles.create_feed_modal_header}>
                     <div className={styles.create_feed_modal_title}>
@@ -88,7 +88,7 @@ function CreateFeedModal(){
                         </div>
                     </div>
                     <div className={styles.create_feed_modal_btn_container}>
-                        <button id="createFeedBtn" onClick={createFeedbtnClickHandler}>게시하기</button>
+                        <button id="createFeedBtn" onClick={createFeedBtnClickHandler}>게시하기</button>
                     </div>
                 </div>
             </div>
@@ -111,9 +111,9 @@ function CreateFeed() {
             <div className={styles.create_feed_new_line}></div>
 
             <div className={styles.create_feed_body}>
-                <div><span>EMPTY</span></div>
-                <div><span>EMPTY</span></div>
-                <div><span>EMPTY</span></div>
+                <div><span>🌞 나는 지금 </span></div>
+                <div><span>🏞 사진 / 영상</span></div>
+                <div><span>😃 오늘의 기분</span></div>
             </div>
         </div>
     );
