@@ -27,7 +27,7 @@ function TopBarLogOutElement(){
 
         setTimeout(()=>{
             window.location.href = '/login'
-        },1000)
+        },250)
     }
 
     return (
