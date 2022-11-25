@@ -73,7 +73,7 @@ async def create(create_id: create_id):
     return jsonable_encoder({'id': list([create_id]), 'message':'생성완료'})
     
 
-@app.post("/create_feed/")
+@app.post("/create_feed")
 async def make_feed(create_feed: create_feed):
     img_path = ''
     if len(create_feed.file) > 1:
