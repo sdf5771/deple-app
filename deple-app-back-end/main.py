@@ -1,14 +1,19 @@
 import json
+import os
 from enum import Enum
 import uvicorn
 from app.DB.DB_crud import DB_api
+# from app.Model.Model_login import login_id , create_id, create_feed
 import app
-from fastapi import FastAPI
+from fastapi import FastAPI ,File, UploadFile
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel
-from uuid import UUID
+from uuid import uuid4
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
+from pydantic import BaseModel
+from typing import List
+import datetime
+
 
 app = FastAPI()
 
@@ -23,10 +28,29 @@ class create_id(BaseModel):
     mail: str
     contact: str
 
+    
+
 class create_feed(BaseModel):
     create_user: str
     feed_content: str
+    file: List[UploadFile]
 
+
+def upload_board(in_files: List[UploadFile] = File(...)):
+    file_urls=[]
+    if len(file_urls) > 3:
+        return False
+    IMG_DIR = 'app/'
+    file_path = []
+    for file in in_files:
+        print(file)
+        currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        saved_file_name = ''.join([currentTime, str(uuid4())])
+        file_location = os.path.join(IMG_DIR, saved_file_name)
+        with open(file_location, "wb+") as file_object:
+            file_object.write(file.file.read())
+            file_path.append(file_location)
+    return file_path
 
 @app.post("/login")
 async def login(login_id: login_id):
@@ -47,10 +71,16 @@ async def create(create_id: create_id):
     except Exception as e:
         return e
     return jsonable_encoder({'id': list([create_id]), 'message':'생성완료'})
+    
 
-@app.post("/create_feed")
-async def create(create_feed: create_feed):
-    sql = f'INSERT INTO `feed`.`table2`(create_user, feed_content) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\')'
+@app.post("/create_feed/")
+async def make_feed(create_feed: create_feed):
+    img_path = ''
+    if len(create_feed.file) > 1:
+        img_path = upload_board(create_feed.file)
+    if img_path == False:
+        return jsonable_encoder({'message':'이미지 파일 3개 이상은 안됩니다.'})
+    sql = f'INSERT INTO `feed`.`table2`(create_user, feed_content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\' , \'{img_path}\')'
     DB_instance = DB_api()
     try:
         DB_instance.create(sql=sql, db_name='feed')
@@ -68,4 +98,4 @@ def feed_select():
         return e
 
 if __name__ == '__main__':
-    uvicorn.run(app, port=8000, host='0.0.0.0')
+    uvicorn.run(app, port=13000, host='0.0.0.0')
