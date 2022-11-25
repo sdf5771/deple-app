@@ -9,10 +9,6 @@ import {SetFeedCommentComponent} from "./SetFeedCommentComponent";
 function SetFeedComponent({data}){
     console.log('prop ', data)
 
-    React.useEffect(()=>{
-
-    },[])
-
     return(
         <div className={styles.feed_component_root}>
             <div className={styles.feed_component_header}>

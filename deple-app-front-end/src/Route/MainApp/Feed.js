@@ -4,13 +4,19 @@ import styles from '../../Stylesheets/Feed.module.css'
 import {CreateFeed, CreateFeedModal} from "../../Components/CreateFeed";
 import {SetFeedComponent} from '../../Components/SetFeedComponent';
 import PublicMessageBox from "../../Components/PublicMessageBox";
+import {useSelector} from "react-redux";
+import createFeedModalResponseReducer from "../../reducers/createFeedModalResponseReducer";
 
 function Feed() {
     const [feedData, setFeedData] = React.useState([]);
-
+    const createFeedModalResponseReducer = useSelector(state => state.createFeedModalResponseReducer);
     useEffect(() => {
         getFeedAjax();
     },[])
+
+    useEffect(()=>{
+        createResponseHandler();
+    },[createFeedModalResponseReducer.feed])
 
     let themeDataArr = [];
 
@@ -46,6 +52,13 @@ function Feed() {
                 setTimeout(function(){
                 }, 1500)
             });
+    }
+
+    function createResponseHandler(){
+        console.log('createFeedModalResponseReducer ', createFeedModalResponseReducer);
+        if(createFeedModalResponseReducer.response){
+            setFeedData(createFeedModalResponseReducer.feed);
+        }
     }
 
     return (

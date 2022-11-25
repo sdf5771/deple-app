@@ -8,6 +8,7 @@ import PublicMessageBox from "./PublicMessageBox";
 function CreateFeedModal(){
     const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const createFeedModalDispatch = useDispatch();
+    const createFeedModalResponseDispatch = useDispatch();
     const [textareaVal, useTextAreaVal] = React.useState('');
     const [uploadContentsClick, setUploadContentsClick] = React.useState(false);
     function TextareaOnChangeHandler(event){
@@ -45,7 +46,7 @@ function CreateFeedModal(){
                 console.log('성공:', data);
                 if(data.message === '피드 생성완료'){
                     PublicMessageBox('피드가 게시되었습니다.');
-
+                    createFeedModalResponseDispatch({type: "server response", payload: data.feed});
                     createFeedModalDispatch({ type : 'CreateFeedModalBackground click'});
                 }
             })
