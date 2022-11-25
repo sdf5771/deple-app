@@ -73,7 +73,7 @@ async def create(create_id: create_id):
     return jsonable_encoder({'id': list([create_id]), 'message':'생성완료'})
     
 
-@app.post("/create_feed/")
+@app.post("/create_feed")
 async def make_feed(create_feed: create_feed):
     img_path = ''
     if len(create_feed.file) > 1:
@@ -84,13 +84,15 @@ async def make_feed(create_feed: create_feed):
     DB_instance = DB_api()
     try:
         DB_instance.create(sql=sql, db_name='feed')
+        sql= 'SELECT * FROM table2 ORDER BY uuid desc'
+        DB_instance = DB_api()
     except Exception as e:
         return e
-    return jsonable_encoder({'id': list({create_feed.create_user}), 'message':'피드 생성완료'})
+    return jsonable_encoder({'id': list({create_feed.create_user}), 'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'피드 생성완료'})
 
 @app.get("/feed_select")
 def feed_select():
-    sql= 'SELECT * FROM table2'
+    sql= 'SELECT * FROM table2 ORDER BY uuid desc'
     DB_instance = DB_api()
     try:
         return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'출력완료'})
