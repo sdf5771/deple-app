@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styles from '../Stylesheets/MenuBar.module.css'
 
+
 function MenuElement({ Type, TextContent, MenuElId, Activated }){
     let elementImgSelector
     if(Type){
@@ -47,11 +48,11 @@ function MenuBar() {
     return (
         <div id="MenuBarRoot" className={styles.menu_bar_root}>
             <div className={styles.menu_bar_header}>
-                <span className={styles.menu_title}>MENU</span>
+                <span className={styles.menu_title}></span>
             </div>
             <div className={styles.menu_bar_body}>
-                <MenuElement MenuElId="homeMenuEl" Type="home" TextContent="Home" Activated={nowPath === '/' ? true : false} />
-                <MenuElement MenuElId="profileMenuEl" Type="profile" TextContent="Profile" Activated={nowPath === '/profile' ? true : false} />
+                <MenuElement MenuElId="homeMenuEl" Type="home" TextContent="피드" Activated={nowPath === '/' ? true : false} />
+                <MenuElement MenuElId="profileMenuEl" Type="profile" TextContent="사용자 프로필" Activated={nowPath === '/profile' ? true : false} />
             </div>
         </div>
     );

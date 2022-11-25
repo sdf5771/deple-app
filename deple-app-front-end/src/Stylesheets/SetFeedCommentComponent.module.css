@@ -1,0 +1,9 @@
+.feed_comment_root{
+    display: flex;
+    flex-direction: row;
+}
+.feed_comment_user_icon_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

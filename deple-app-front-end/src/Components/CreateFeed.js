@@ -9,6 +9,7 @@ function CreateFeedModal(){
     const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const createFeedModalDispatch = useDispatch();
     const [textareaVal, useTextAreaVal] = React.useState('');
+    const [uploadContentsClick, setUploadContentsClick] = React.useState(false);
     function TextareaOnChangeHandler(event){
         useTextAreaVal(event.target.value);
     }
@@ -20,7 +21,8 @@ function CreateFeedModal(){
         console.log('textareaVal ', textareaVal);
         let data = {
             create_user: cookies.userId,
-            feed_content: textareaVal
+            feed_content: textareaVal,
+            file: [],
         };
 
         console.log('data ', data);
@@ -63,6 +65,11 @@ function CreateFeedModal(){
             createFeedAjax();
         }
     }
+
+    const uploadContentsClickHandler = (event) => {
+        setUploadContentsClick(true);
+    }
+
     return (
         <div id="CreateFeedModal" className={styles.create_feed_modal_root}>
             <div className={styles.modal_background} onClick={feedModalBackGroundClickHandler}></div>
@@ -82,9 +89,14 @@ function CreateFeedModal(){
                         </div>
                     </div>
                     <div className={styles.create_feed_modal_content_container}>
+                        <div>
+                            <input id='imageInput' className={styles.imgInput} accept="image/png, image/jpeg" type='file'/>
+                        </div>
                         <textarea onChange={TextareaOnChangeHandler} placeholder="어떤 게시글을 작성할까요?" value={textareaVal}></textarea>
                         <div className={styles.create_feed_modal_another_container}>
-
+                            <div className={styles.another_container_item}><span>🌞 나는 지금 </span></div>
+                            <div onClick={uploadContentsClickHandler} className={styles.another_container_item}><span>🏞 사진 / 영상</span></div>
+                            <div className={styles.another_container_item}><span>😃 오늘의 기분</span></div>
                         </div>
                     </div>
                     <div className={styles.create_feed_modal_btn_container}>
@@ -105,7 +117,7 @@ function CreateFeed() {
     return (
         <div id="CreateFeedRoot" className={styles.create_feed_root}>
             <div className={styles.create_feed_header}>
-                <input id="CreateFeedInput" onClick={CreateFeedInputOnClickHandler} className={styles.create_feed_input} placeholder="What's on your mind" readOnly={true}/>
+                <input id="CreateFeedInput" onClick={CreateFeedInputOnClickHandler} className={styles.create_feed_input} placeholder="당신의 생각을 공유해 보세요." readOnly={true}/>
             </div>
 
             <div className={styles.create_feed_new_line}></div>

@@ -34,7 +34,7 @@ function TopBarLogOutElement(){
         <div onClick={onClick} className={styles.top_Bar_logout_element}>
             <div className={styles.top_Bar_logout_img}></div>
             <div className={styles.top_Bar_logout_title_div}>
-                <span>LogOut</span>
+                <span>로그아웃</span>
             </div>
         </div>
     );

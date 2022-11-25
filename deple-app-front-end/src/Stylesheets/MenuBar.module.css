@@ -54,10 +54,14 @@
     border-bottom-right-radius: 4px;
     background-color: #5881C0;
     transition: all 0.4s ease;
-    animation: fadein 1.5s;
-    -moz-animation: fadein 1.5s; /* Firefox */
-    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
-    -o-animation: fadein 1.5s; /* Opera */
+    /*animation: fadein 1.5s;*/
+    /*-moz-animation: fadein 1.5s; !* Firefox *!*/
+    /*-webkit-animation: fadein 1.5s; !* Safari and Chrome *!*/
+    /*-o-animation: fadein 1.5s; !* Opera *!*/
+    animation: animateHeight 0.4s;
+    -moz-animation: animateHeight 0.4s; /* Firefox */
+    -webkit-animation: animateHeight 0.4s; /* Safari and Chrome */
+    -o-animation: animateHeight 0.4s; /* Opera */
 }
 .menu_element_root:hover{
     background-color: #303031;
@@ -123,5 +127,38 @@
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes animateHeight {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 60%;
+    }
+}
+@-moz-keyframes animateHeight { /* Firefox */
+    from {
+        height: 0%;
+    }
+    to {
+        height: 60%;
+    }
+}
+@-webkit-keyframes animateHeight { /* Safari and Chrome */
+    from {
+        height: 0%;
+    }
+    to {
+        height: 60%;
+    }
+}
+@-o-keyframes animateHeight { /* Opera */
+    from {
+        height: 0%;
+    }
+    to {
+        height: 60%;
     }
 }
