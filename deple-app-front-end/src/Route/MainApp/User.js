@@ -1,9 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import publicStyles from '../../Stylesheets/PublicStyle.module.css';
 
 function User() {
     return (
-        <div><h1>hello i'm User</h1></div>
+        <div className={publicStyles.page_root_container}>
+            <div></div>
+            <div></div>
+        </div>
     );
 }
 

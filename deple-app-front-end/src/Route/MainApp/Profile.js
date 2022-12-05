@@ -4,6 +4,7 @@ import User from './User'
 import styles from "../../Stylesheets/MainApp.module.css";
 import MenuBar from "../../Components/MenuBar";
 import LoginCheck from '../../Components/LoginCheck';
+import AsideBar from "../../Components/AsideBar";
 
 function Profile() {
     let loginToken = LoginCheck();
@@ -16,6 +17,7 @@ function Profile() {
                     <div className={styles.app_body}>
                         <MenuBar />
                         <User />
+                        <AsideBar />
                     </div>
                 </div>
             );

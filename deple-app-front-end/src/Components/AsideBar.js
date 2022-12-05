@@ -14,6 +14,14 @@ function AsideBar() {
     return (
         <div id="AsideBarRoot" className={styles.asideBarRoot}>
             {/*<SetUserInformation />*/}
+            <div className={styles.asideBarContainer}>
+                <div className={styles.asideBarHeader}>
+                    <span>Header Title Container</span>
+                </div>
+                <div>
+
+                </div>
+            </div>
         </div>
     );
 }

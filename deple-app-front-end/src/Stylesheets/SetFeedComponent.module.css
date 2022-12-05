@@ -121,3 +121,41 @@
     width: 100%;
     height: fit-content;
 }
+.feed_component_new_line{
+    margin: 10px 20px 10px 20px;
+    width: calc(100% - 40px);
+    border-bottom: 1px solid #242526;
+}
+.feed_component_create_comments_container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0 20px 10px 20px;
+    width: calc(100% - 40px - 40px);
+    height: 40px;
+    background-color: #242526;
+    border-radius: 4px;
+    gap: 8px;
+}
+.feed_component_user_icon_small{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-image: url(../Image/Public_icons/feed_user_icon_default.png);
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fff;
+}
+.feed_component_create_comments_input_container{
+    width : calc(100% - 8px - 20px);
+}
+.feed_component_create_comments_input{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background-color: inherit;
+    fons-size: 1rem;
+    color: #fff;
+}
