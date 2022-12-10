@@ -8,32 +8,34 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginNavigator from './assets/screens/Login/LoginNavigator';
 import HomeNavigator from './assets/screens/Home/HomeNavigator';
 
-import { StoreProvider, useStores } from "./assets/store/Context";
+import {StoreProvider, useStores} from './assets/store/Context';
 import {RootStore} from './assets/store/RootStore';
-import {observer} from 'mobx-react';
+import {observer, useObserver} from 'mobx-react';
 
 const rootStore = new RootStore();
 
-const App = () => {
-  const {loginStore} = useStores(rootStore);
+const App = observer(() => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
-  return (
+  return useObserver(() => (
     <SafeAreaView style={styles.rootContainer}>
       <NavigationContainer>
         <StoreProvider value={rootStore}>
-          {loginStore.isLoggedIn ? <HomeNavigator /> : <LoginNavigator />}
+          {rootStore.loginStore.isLoggedIn ? <HomeNavigator /> : <LoginNavigator />}
         </StoreProvider>
       </NavigationContainer>
     </SafeAreaView>
-  );
-};
+  ));
+});
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -41,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(App);
+export default App;
