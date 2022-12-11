@@ -32,11 +32,11 @@ function SetFeedCommentComponent({feeduuid, userName , commentContents}){
             <div className={styles.feed_comment_user_icon_container}>
                 <div className={feedStyles.feed_component_user_icon}></div>
             </div>
-            <div>
-                <div>
+            <div className={styles.feed_comment_content_container}>
+                <div className={styles.feed_comment_user_name_container}>
                     <span>{userName}</span>
                 </div>
-                <div>
+                <div className={styles.feed_comment_input_container}>
                     <input readOnly="true" value={commentContents}/>
                 </div>
             </div>

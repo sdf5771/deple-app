@@ -1,0 +1,36 @@
+.user_shortcut_component_root{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 10px;
+    padding: 5px 0;
+    width: calc(100% - 20px);
+    height: fit-content;
+    background-color: #242526;
+    border-radius: 8px;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.user_shortcut_component_root:hover{
+    background-color: #4D4F50;
+}
+.user_shortcut_component_user_icon_container{
+    margin-left: 8px;
+}
+.user_shortcut_component_user_icon_container > div{
+    width: 20px!important;
+    height: 20px!important;
+    min-width: 20px!important;
+    min-height: 20px!important;
+    background-size: 10px!important;
+}
+
+
+.user_shortcut_component_user_name_container{
+
+}
+.user_shortcut_component_user_name_container > span{
+    color: #fff;
+    font-size: 1rem;
+}

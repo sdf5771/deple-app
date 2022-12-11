@@ -25,3 +25,14 @@
     color: #fff;
     margin-left: 20px;
 }
+.asideBarBody{
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

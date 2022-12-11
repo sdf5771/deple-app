@@ -11,10 +11,52 @@ function SetFeedComponent({data}){
     const [commentCreateClick, setCommentCreateClick] = useState(false);
     const [feedCommentVal, setFeedCommentVal] = useState('');
     const [cookies, setCookie, removeCookie] = useCookies(['userId']);
+    const [feedCommentData, setFeedCommentData] = useState([]);
+
     console.log('prop ', data)
 
-    const feedCommentCreateOnClickHandler = (event) => {
+    const feedCommentCreateOnClickHandler = async (event) => {
         setCommentCreateClick(!commentCreateClick);
+
+        if(!commentCreateClick){
+            await getFeedCommentData();
+        }
+    }
+
+    function getFeedCommentData(){
+        let feedCommentReqData = {
+            feed_id: data.feed_id,
+        }
+
+        fetch(`/comment_select`, { //${"http://localhost:13000"}
+            method: 'POST', // 또는 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(feedCommentReqData),
+        }) // throw new Error('Network response was not ok.');
+            .then((response) => {
+                console.log('response ', response);
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then((data) => {
+                console.log('성공:', data);
+                if(data.message === "200 ok"){
+                    setFeedCommentData(data.comment_req);
+
+                    return;
+                }
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+
+                PublicMessageBox('피드 데이터를 불러오는데 실패했어요. 관리자에게 문의해주세요.');
+                setTimeout(function(){
+                }, 1500)
+            });
     }
 
     const feedCommentCreateOnKeyDownHandler = async (event) => {
@@ -27,17 +69,43 @@ function SetFeedComponent({data}){
         }
 
         let createFeedCommentData = {
-            userId: cookies.userId,
-            feedComment: feedCommentVal,
-            feedUUID: data.uuid,
+            user_id: cookies.userId,
+            feed_comment: feedCommentVal,
+            feed_id: data.feed_id,
         }
 
-        // fetch()
+        console.log('createFeedCommentData ', createFeedCommentData)
+
+        fetch(`/create_comment`, { //${"http://localhost:13000"}
+            method: 'POST', // 또는 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(createFeedCommentData),
+        }) // throw new Error('Network response was not ok.');
+            .then((response) => {
+                console.log('response ', response);
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then((data) => {
+                console.log('성공: create comment ', data);
+                if(data.message === '200 ok'){
+                    setFeedCommentData(data.comment_req);
+                }
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+
+                PublicMessageBox('댓글 생성에 실패했어요. 관리자에게 문의해주세요.');
+                setTimeout(function(){
+                }, 1500)
+            });
 
         //initialize feed comment input
         setFeedCommentVal('');
-
-        console.log('create feed comment data ', createFeedCommentData)
     }
 
     return(
@@ -45,7 +113,7 @@ function SetFeedComponent({data}){
             <div className={styles.feed_component_header}>
                 <div className={styles.feed_component_user_icon}></div>
                 <div className={styles.feed_component_user_profile}>
-                    <span className={styles.user_name}>{data.create_user}</span>
+                    <span className={styles.user_name}>{data.user_id}</span>
                     <span className={styles.create_date}>{data._create ? data._create : '생성일 : 0000-00-00'}</span>
                 </div>
             </div>
@@ -61,22 +129,17 @@ function SetFeedComponent({data}){
                         event.target.style.height = '40px'
                         event.target.style.maxHeight = '40px'
                     }}
-                    value={data.feed_content}
+                    value={data.content}
                     readOnly={true}></textarea>
             </div>
             <div className={styles.feed_component_response_body}>
                 <div className={styles.feed_component_response_content}><div className={styles.feed_like}></div><span>좋아요</span></div>
                 <div onClick={feedCommentCreateOnClickHandler} className={styles.feed_component_response_content}><div className={styles.feed_comments}></div><span>댓글달기</span></div>
             </div>
-            <div className={styles.feed_component_comments_body}>
-                {data.feedCommentData ? data.feedCommentData.map( (commentData, idx) => {
-                    <SetFeedCommentComponent feeduuid={data.uuid} userName={commentData.userName} commentContents={commentData.comment}/>
-                }) : null}
-
-            </div>
             {commentCreateClick ?
                 <div className={publicStyles.fade_in_area}>
                     <div className={styles.feed_component_new_line}></div>
+
                     <div className={styles.feed_component_create_comments_container}>
                         <div className={styles.feed_component_user_icon_small}></div>
                         <div className={styles.feed_component_create_comments_input_container}>
@@ -88,6 +151,19 @@ function SetFeedComponent({data}){
                                 value={feedCommentVal}
                             />
                         </div>
+                    </div>
+
+                    <div className={styles.feed_component_comments_body}>
+                        {feedCommentData ? feedCommentData.map( (commentData, idx) => {
+                            if(commentData.feed_id === data.feed_id){
+                                return <SetFeedCommentComponent feeduuid={data.feed_id} userName={commentData.user_id} commentContents={commentData.feed_comment}/>
+                            }
+                        }) : null}
+
+                        {/*{data.feedCommentData ? data.feedCommentData.map( (commentData, idx) => {*/}
+                        {/*    <SetFeedCommentComponent feeduuid={data.feed_id} userName={commentData.user_id} commentContents={commentData.comment}/>*/}
+                        {/*}) : null}*/}
+
                     </div>
                 </div>
                 : null}

@@ -23,7 +23,10 @@ const rootStore = new RootStore();
 
 const App = observer(() => {
   useEffect(() => {
-    SplashScreen.hide();
+    console.log('SplashScreen ', SplashScreen);
+    setTimeout(function () {
+      SplashScreen.hide();
+    }, 2000);
   }, []);
 
   return useObserver(() => (

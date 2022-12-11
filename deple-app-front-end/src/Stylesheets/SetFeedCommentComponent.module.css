@@ -1,12 +1,57 @@
 .feed_comment_root{
     display: flex;
     flex-direction: row;
+    margin: 0 40px 0 40px;
+    padding: 5px 0;
+    width: calc(100% - 80px);
+    height: fit-content;
+    background-color: #242526;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.feed_comment_root:hover{
+    background-color: #4D4F50;
+}
+.feed_comment_root:last-child{
+    margin-bottom: 8px;
 }
 .feed_comment_user_icon_container{
+    margin-left: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.feed_comment_user_icon_container > div{
+    width: 20px!important;
+    height: 20px!important;
+    min-width: 20px!important;
+    min-height: 20px!important;
+    background-size: 10px!important;
+}
 .feed_comment_user_content_container{
 
 }
+.feed_comment_user_name_container{
+    margin-left: 5px;
+}
+.feed_comment_content_container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+}
+.feed_comment_user_name_container > span{
+    font-size: 0.8rem;
+    color: #fff;
+}
+.feed_comment_input_container{
+
+}
+.feed_comment_input_container > input{
+    border: 0;
+    outline: 0;
+    background-color: inherit;
+    font-size: 1rem;
+    color: #fff;
+}
+
