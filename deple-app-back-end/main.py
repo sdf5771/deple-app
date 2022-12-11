@@ -88,7 +88,7 @@ async def make_feed(create_feed: create_feed):
 
 @app.get("/feed_select")
 def feed_select():
-    sql= 'SELECT * FROM table ORDER BY feed_id desc'
+    sql= 'SELECT * FROM feed ORDER BY feed_id desc'
     DB_instance = DB_api()
     try:
         return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'출력완료'})
