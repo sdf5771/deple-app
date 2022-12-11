@@ -14,7 +14,6 @@ from pydantic import BaseModel
 from typing import List
 import datetime
 
-
 app = FastAPI()
 
 class login_id(BaseModel):
@@ -28,13 +27,10 @@ class create_id(BaseModel):
     mail: str
     contact: str
 
-    
-
 class create_feed(BaseModel):
     create_user: str
     feed_content: str
     file: List[UploadFile]
-
 
 def upload_board(in_files: List[UploadFile] = File(...)):
     file_urls=[]
@@ -64,7 +60,7 @@ async def login(login_id: login_id):
 
 @app.post("/create")
 async def create(create_id: create_id):
-    sql = f'INSERT INTO `user`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.userId}\',\'{create_id.userPw}\',\'{create_id.name}\',\'{create_id.mail}\',\'{create_id.contact}\')'
+    sql = f'INSERT INTO `User`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.userId}\',\'{create_id.userPw}\',\'{create_id.name}\',\'{create_id.mail}\',\'{create_id.contact}\')'
     DB_instance = DB_api()
     try:
         DB_instance.create(sql=sql, db_name='user')
@@ -80,7 +76,7 @@ async def make_feed(create_feed: create_feed):
         img_path = upload_board(create_feed.file)
     if img_path == False:
         return jsonable_encoder({'message':'이미지 파일 3개 이상은 안됩니다.'})
-    sql = f'INSERT INTO `feed`.`table2`(create_user, feed_content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\' , \'{img_path}\')'
+    sql = f'INSERT INTO `Feed`.`table`(create_user, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
     DB_instance = DB_api()
     try:
         DB_instance.create(sql=sql, db_name='feed')
@@ -92,7 +88,7 @@ async def make_feed(create_feed: create_feed):
 
 @app.get("/feed_select")
 def feed_select():
-    sql= 'SELECT * FROM table2 ORDER BY uuid desc'
+    sql= 'SELECT * FROM table ORDER BY uuid desc'
     DB_instance = DB_api()
     try:
         return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'출력완료'})
