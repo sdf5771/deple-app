@@ -4,7 +4,7 @@ import uvicorn
 import app
 
 from enum import Enum
-from app.db.db_config import db_api
+from app.DB.db_config import db_api
 from app.Controller.util import now_t
 from fastapi import FastAPI ,File, UploadFile
 from fastapi.encoders import jsonable_encoder
