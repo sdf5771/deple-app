@@ -12,6 +12,7 @@ function SetFeedComponent({data}){
     const [feedCommentVal, setFeedCommentVal] = useState('');
     const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const [feedCommentData, setFeedCommentData] = useState([]);
+    const [isConnected, setIsConnected] = useState(false);
 
     console.log('prop ', data)
 
@@ -68,41 +69,46 @@ function SetFeedComponent({data}){
             return
         }
 
-        let createFeedCommentData = {
-            user_id: cookies.userId,
-            feed_comment: feedCommentVal,
-            feed_id: data.feed_id,
+        if(!isConnected){
+            setIsConnected(true);
+
+            let createFeedCommentData = {
+                user_id: cookies.userId,
+                feed_comment: feedCommentVal,
+                feed_id: data.feed_id,
+            }
+
+            console.log('createFeedCommentData ', createFeedCommentData)
+
+            fetch(`/create_comment`, { //${"http://localhost:13000"}
+                method: 'POST', // 또는 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(createFeedCommentData),
+            }) // throw new Error('Network response was not ok.');
+                .then((response) => {
+                    console.log('response ', response);
+                    if(response.ok){
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then((data) => {
+                    console.log('성공: create comment ', data);
+                    if(data.message === '200 ok'){
+                        setFeedCommentData(data.comment_req);
+                        setIsConnected(false);
+                    }
+                })
+                .catch((error) => {
+                    console.error('실패:', error);
+
+                    PublicMessageBox('댓글 생성에 실패했어요. 관리자에게 문의해주세요.');
+                    setTimeout(function(){
+                    }, 1500)
+                });
         }
-
-        console.log('createFeedCommentData ', createFeedCommentData)
-
-        fetch(`/create_comment`, { //${"http://localhost:13000"}
-            method: 'POST', // 또는 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(createFeedCommentData),
-        }) // throw new Error('Network response was not ok.');
-            .then((response) => {
-                console.log('response ', response);
-                if(response.ok){
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .then((data) => {
-                console.log('성공: create comment ', data);
-                if(data.message === '200 ok'){
-                    setFeedCommentData(data.comment_req);
-                }
-            })
-            .catch((error) => {
-                console.error('실패:', error);
-
-                PublicMessageBox('댓글 생성에 실패했어요. 관리자에게 문의해주세요.');
-                setTimeout(function(){
-                }, 1500)
-            });
 
         //initialize feed comment input
         setFeedCommentVal('');
