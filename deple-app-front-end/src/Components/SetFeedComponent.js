@@ -109,7 +109,6 @@ function SetFeedComponent({data}){
                     }, 1500)
                 });
         }
-
         //initialize feed comment input
         setFeedCommentVal('');
     }
@@ -120,7 +119,7 @@ function SetFeedComponent({data}){
                 <div className={styles.feed_component_user_icon}></div>
                 <div className={styles.feed_component_user_profile}>
                     <span className={styles.user_name}>{data.user_id}</span>
-                    <span className={styles.create_date}>{data._create ? data._create : '생성일 : 0000-00-00'}</span>
+                    <span className={styles.create_date}>{data._create ? '생성일 : ' + data._create : '생성일 : 0000-00-00'}</span>
                 </div>
             </div>
             <div className={styles.feed_component_body}>

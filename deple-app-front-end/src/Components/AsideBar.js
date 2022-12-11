@@ -49,7 +49,7 @@ function AsideBar() {
             {/*<SetUserInformation />*/}
             <div className={styles.asideBarContainer}>
                 <div className={styles.asideBarHeader}>
-                    <span> 🤩 모든 멋쟁이 리스트 </span>
+                    <span> 🤩 멋쟁이 리스트 </span>
                 </div>
                 <div className={styles.asideBarBody}>
                     {userList ? userList.map((userData, idx) => {
