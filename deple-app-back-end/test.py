@@ -1,13 +1,12 @@
-from uuid import UUID , uuid4
+# from uuid import UUID , uuid4
+from datetime import datetime
 
-session = uuid4()
-data = SessionData(username=name)
+# datetime object containing current date and time
 
-class SessionData(BaseModel):
-    username: str
+# dd/mm/YY H:M:S
+dt_string = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    await backend.create(session, data)
-    cookie.attach_to_response(response, session)
 
 if __name__=="__main__":
-    print(data)
+    print(dt_string)
+    # print(uuid.uuid4())
