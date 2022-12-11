@@ -1,1 +1,1 @@
-from .db_config import DB_api
+from .db_config import db_api
