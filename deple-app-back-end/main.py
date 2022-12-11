@@ -126,7 +126,7 @@ def feed_select(select_comment: select_comment):
     sql= f'SELECT * FROM feed_comment where feed_comment_id = \'{select_comment.feed_comment_id}\' and feed_id = \'{select_comment.feed_id}\' ORDER BY feed_id'
     DB_instance = db_api()
     try:
-        return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'출력완료'})
+        return jsonable_encoder({'comment_req': DB_instance.select(sql=sql, db_name='Feed'), 'message':'200 ok'})
     except Exception as e:
         return e
 
