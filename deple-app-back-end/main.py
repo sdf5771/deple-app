@@ -28,7 +28,7 @@ class create_id(BaseModel):
     contact: str
 
 class create_feed(BaseModel):
-    user_id: str
+    create_user: str
     feed_content: str
     file: List[UploadFile]
 
@@ -76,7 +76,7 @@ async def make_feed(create_feed: create_feed):
         img_path = upload_board(create_feed.file)
     if img_path == False:
         return jsonable_encoder({'message':'이미지 파일 3개 이상은 안됩니다.'})
-    sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'{create_feed.user_id}\',\'{create_feed.feed_content}\', \'{img_path}\')'
+    sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
     DB_instance = DB_api()
     try:
         DB_instance.create(sql=sql, db_name='Feed')
@@ -84,7 +84,7 @@ async def make_feed(create_feed: create_feed):
         DB_instance = DB_api()
     except Exception as e:
         return e
-    return jsonable_encoder({'id': list({create_feed.user_id}), 'Feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'피드 생성완료'})
+    return jsonable_encoder({'id': list({create_feed.create_user}), 'Feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'피드 생성완료'})
 
 @app.get("/feed_select")
 def feed_select():
