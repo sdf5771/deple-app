@@ -52,7 +52,7 @@ def upload_board(in_files: List[UploadFile] = File(...)):
 async def login(login_id: login_id):
     sql= f'SELECT * FROM people WHERE id = \'{login_id.id}\' and pw = \'{login_id.pw}\''
     DB_instance = DB_api()
-    if DB_instance.select(sql=sql, db_name='user'):
+    if DB_instance.select(sql=sql, db_name='User'):
         return jsonable_encoder({'id': list({login_id.id})[0], 'auth':'yes'})
     else:
         auth = {'auth':'no'}
@@ -63,7 +63,7 @@ async def create(create_id: create_id):
     sql = f'INSERT INTO `User`.`people`(id, pw, name, email, contact) VALUES(\'{create_id.userId}\',\'{create_id.userPw}\',\'{create_id.name}\',\'{create_id.mail}\',\'{create_id.contact}\')'
     DB_instance = DB_api()
     try:
-        DB_instance.create(sql=sql, db_name='user')
+        DB_instance.create(sql=sql, db_name='User')
     except Exception as e:
         return e
     return jsonable_encoder({'id': list([create_id]), 'message':'생성완료'})
@@ -79,19 +79,19 @@ async def make_feed(create_feed: create_feed):
     sql = f'INSERT INTO `Feed`.`table`(create_user, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
     DB_instance = DB_api()
     try:
-        DB_instance.create(sql=sql, db_name='feed')
-        sql= 'SELECT * FROM table2 ORDER BY uuid desc'
+        DB_instance.create(sql=sql, db_name='Feed')
+        sql= 'SELECT * FROM table ORDER BY feed_id desc'
         DB_instance = DB_api()
     except Exception as e:
         return e
-    return jsonable_encoder({'id': list({create_feed.create_user}), 'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'피드 생성완료'})
+    return jsonable_encoder({'id': list({create_feed.create_user}), 'Feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'피드 생성완료'})
 
 @app.get("/feed_select")
 def feed_select():
-    sql= 'SELECT * FROM table ORDER BY uuid desc'
+    sql= 'SELECT * FROM table ORDER BY feed_id desc'
     DB_instance = DB_api()
     try:
-        return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='feed'), 'message':'출력완료'})
+        return jsonable_encoder({'feed': DB_instance.select(sql=sql, db_name='Feed'), 'message':'출력완료'})
     except Exception as e:
         return e
 

@@ -9,7 +9,7 @@ class DB_api:
     def connect(self,db_name):
         self.conn = pymysql.connect(
         user='root', 
-        passwd='root', 
+        passwd='@root1234', 
         host='127.0.0.1', 
         db=db_name, 
         charset='utf8'
