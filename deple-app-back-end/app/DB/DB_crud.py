@@ -1,16 +1,25 @@
 from dotenv import load_dotenv
 import pymysql
-import json
+import os
+
+load_dotenv(verbose=True)
+
+DB_IP = os.getenv('DB_IP')
+DB_ID = os.getenv('DB_ID')
+DB_password = os.getenv('DB_password')
 
 class DB_api:
     def __init__(self):
         self.conn = None
+        self.DB_IP = DB_IP
+        self.DB_ID = DB_ID
+        self.DB_password = DB_password
     
     def connect(self,db_name):
         self.conn = pymysql.connect(
-        user='root', 
-        passwd='@root1234', 
-        host='127.0.0.1', 
+        user=self.DB_ID, 
+        passwd=self.DB_password, 
+        host=self.DB_IP, 
         db=db_name, 
         charset='utf8'
         )
