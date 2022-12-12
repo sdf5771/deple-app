@@ -129,8 +129,8 @@ async def make_feed(create_feed: UploadFile):
     # if img_path == False:
     #     return jsonable_encoder({'message':'이미지 파일 3개 이상은 안됩니다.'})
     try:
-        # sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
-        sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'병익\',\'is_back\', \'{img_path}\')'
+        sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
+        # sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'병익\',\'is_back\', \'{img_path}\')'
         DB_instance = db_api()
         DB_instance.create(sql=sql, db_name='Feed')
         sql= 'SELECT * FROM feed ORDER BY feed_id desc'
