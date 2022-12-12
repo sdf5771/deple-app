@@ -80,9 +80,11 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
             PublicMessageBox('댓글이 수정되었습니다.');
 
             event.target.blur();
-        } else {
-            setFeedCommentVal(event.target.value + event.key);
         }
+    }
+
+    const feedCommentInputOnChangeHandler = (event) => {
+        setFeedCommentVal(event.target.value);
     }
 
     const feedCommentInputFocusOutHandler = (event) => {
@@ -106,6 +108,7 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
                     <input id="feedCommentInput" ref={feedCommentInputRef} readOnly="true" value={feedCommentVal}
                            onBlur={feedCommentInputFocusOutHandler}
                            onKeyDown={feedCommentInputKeyDownHandler}
+                           onChange={feedCommentInputOnChangeHandler}
                     />
                 </div>
             </div>
