@@ -8,6 +8,7 @@
     background-color: #242526;
     border-radius: 25px;
     cursor: pointer;
+    align-items: center;
     transition: background-color 0.2s ease;
 }
 .feed_comment_root:hover{
@@ -39,6 +40,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 12px;
+    width: calc(100% - 20px - 22px - 30px - 30px);
 }
 .feed_comment_user_name_container > span{
     font-size: 0.8rem;
@@ -53,5 +55,26 @@
     background-color: inherit;
     font-size: 1rem;
     color: #fff;
+}
+.feed_comment_menu_btn{
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: inherit;
+    position: relative;
+    /*transition: background-color 0.2ms ease;*/
+}
+.feed_comment_menu_btn:hover{
+    background-color: #242526; /*242526*/ /*4D4F50*/
+}
+.feed_comment_menu_btn > .comment_img{
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    background-image: url(../Image/Public_icons/menu_dots_icon.png);
+    background-size: 15px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
