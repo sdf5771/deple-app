@@ -1,0 +1,21 @@
+.user_profile_root{
+    display: flex;
+}
+
+
+
+
+
+/*user profile empty container*/
+.user_profile_empty_root{
+    display: flex;
+}
+.user_profile_empty_body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user_profile_empty_body > span{
+    font-size: 2rem;
+    color: #fff;
+}

@@ -161,14 +161,9 @@ function SetFeedComponent({data}){
                     <div className={styles.feed_component_comments_body}>
                         {feedCommentData ? feedCommentData.map( (commentData, idx) => {
                             if(commentData.feed_id === data.feed_id){
-                                return <SetFeedCommentComponent feeduuid={data.feed_id} userName={commentData.user_id} commentContents={commentData.feed_comment}/>
+                                return <SetFeedCommentComponent feed_id={data.feed_id} userName={commentData.user_id} feed_comment_id={commentData.feed_comment_id} commentContents={commentData.feed_comment}/>
                             }
                         }) : null}
-
-                        {/*{data.feedCommentData ? data.feedCommentData.map( (commentData, idx) => {*/}
-                        {/*    <SetFeedCommentComponent feeduuid={data.feed_id} userName={commentData.user_id} commentContents={commentData.comment}/>*/}
-                        {/*}) : null}*/}
-
                     </div>
                 </div>
                 : null}
