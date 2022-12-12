@@ -184,7 +184,7 @@ def cr_comment(create_comment: create_comment):
 def up_comment(update_comment: update_comment):
     # feed_comment_id, feed_id,  user_id, comment, _eidt , _created;
     try:
-        sql = f'update feed_comment set feed_comment = \'{update_comment.feed_comment}\' , _edit = \'{now_t}\'From feed_comment where feed_comment_id = \'{update_comment.feed_comment_id}\' AND feed_id = \'{update_comment.feed_id}\';'
+        sql = f'update feed_comment set feed_comment = \'{update_comment.feed_comment}\', _edit = \'{now_t()}\' where feed_comment_id = \'{update_comment.feed_comment_id}\' AND feed_id = \'{update_comment.feed_id}\';'
         DB_instance = db_api()
         DB_instance.create(sql=sql, db_name='Feed')
         sql= 'SELECT feed_id, feed_comment, user_id, _edit FROM feed_comment ORDER BY feed_comment_id desc;'
