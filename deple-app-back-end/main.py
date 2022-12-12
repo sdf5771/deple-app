@@ -52,22 +52,21 @@ app = FastAPI()
 #                 file_path.append(file_location)
 #         return file_path
 
-# @app.post("/image_upload", response_class=HTMLResponse)
-# async def upload_board(in_files: List[bytes] = File(...)):
-#     file_urls=[]
-#     if len(file_urls) > 3:
-#         return False
-#     IMG_DIR = 'app/'
-#     file_path = []
-#     for file in in_files:
-#         print(file)
-#         currentTime = now_t()
-#         saved_file_name = ''.join([currentTime, str(uuid4())])
-#         file_location = os.path.join(IMG_DIR, saved_file_name)
-#         with open(file_location, "wb+") as file_object:
-#             file_object.write(file.file.read())
-#             file_path.append(file_location)
-#     return file_path
+async def upload_board(in_files: List[bytes] = File(...)):
+    file_urls=[]
+    if len(file_urls) > 3:
+        return False
+    IMG_DIR = 'app/'
+    file_path = []
+    for file in in_files:
+        print(file)
+        currentTime = now_t()
+        saved_file_name = ''.join([currentTime, str(uuid4())])
+        file_location = os.path.join(IMG_DIR, saved_file_name)
+        with open(file_location, "wb+") as file_object:
+            file_object.write(file.file.read())
+            file_path.append(file_location)
+    return file_path
 
 
 class login_id(BaseModel):
@@ -82,9 +81,9 @@ class create_id(BaseModel):
     contact: str
 
 class create_feed(BaseModel):
-    # create_user: str
-    # feed_content: str
-    file: UploadFile
+    create_user: str
+    feed_content: str
+    # file: List[UploadFile]
 
 class create_comment(BaseModel):
     feed_id: str
@@ -122,7 +121,7 @@ async def create(create_id: create_id):
     
 
 @app.post("/create_feed")
-async def make_feed(create_feed: UploadFile):
+async def make_feed(create_feed: create_feed):
     img_path = ''
     # if len(create_feed.file) > 1:
     #     img_path = upload_board(create_feed.file)
