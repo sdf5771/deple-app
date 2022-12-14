@@ -33,14 +33,12 @@ function Feed() {
             method: 'GET', // 또는 'PUT'
         }) // throw new Error('Network response was not ok.');
             .then((response) => {
-                console.log('response ', response);
                 if(response.ok){
                     return response.json();
                 }
                 throw new Error('Network response was not ok.');
             })
             .then((data) => {
-                console.log('성공:', data);
                 if(data.message === '출력완료'){
                     setFeedData(data.feed);
                 }
@@ -68,7 +66,7 @@ function Feed() {
             </div>
             <div className={styles.feed_main_body}>
                 {feedData ? feedData.map( feedData => {
-                    return <SetFeedComponent data={feedData}/>
+                    return <SetFeedComponent key={feedData.feed_id} data={feedData}/>
                 }) : null}
             </div>
         </div>

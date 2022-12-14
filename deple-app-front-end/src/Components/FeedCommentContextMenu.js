@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 
 function FeedCommentContextMenu({feed_id, user_id, feed_comment_id}){
     const commentModifyBtnClickDispatch = useDispatch();
+    const commentDeleteBtnClickDispatch = useDispatch();
 
     const commentModifyBtnClickHandler = (event) => {
         let data = {
@@ -12,11 +13,16 @@ function FeedCommentContextMenu({feed_id, user_id, feed_comment_id}){
             user_id: user_id,
             feed_comment_id: feed_comment_id,
         }
-        commentModifyBtnClickDispatch({ type : 'feedCommentModifyBtn click', data});
+        commentModifyBtnClickDispatch({ type : 'feedCommentModifyBtn click true', data});
     }
 
     const commentDeleteBtnClickHandler = (event) => {
-
+        let data = {
+            feed_id: feed_id,
+            user_id: user_id,
+            feed_comment_id: feed_comment_id,
+        }
+        commentDeleteBtnClickDispatch({ type : 'feedCommentDeleteBtn click true', data});
     }
     return(
         <div className={styles.context_menu_root}>

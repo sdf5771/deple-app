@@ -88,14 +88,12 @@ function SetFeedComponent({data}){
                 body: JSON.stringify(createFeedCommentData),
             }) // throw new Error('Network response was not ok.');
                 .then((response) => {
-                    console.log('response ', response);
                     if(response.ok){
                         return response.json();
                     }
                     throw new Error('Network response was not ok.');
                 })
                 .then((data) => {
-                    console.log('성공: create comment ', data);
                     if(data.message === '200 ok'){
                         setFeedCommentData(data.comment_req);
                         setIsConnected(false);
@@ -161,7 +159,7 @@ function SetFeedComponent({data}){
                     <div className={styles.feed_component_comments_body}>
                         {feedCommentData ? feedCommentData.map( (commentData, idx) => {
                             if(commentData.feed_id === data.feed_id){
-                                return <SetFeedCommentComponent feed_id={data.feed_id} userName={commentData.user_id} feed_comment_id={commentData.feed_comment_id} commentContents={commentData.feed_comment}/>
+                                return <SetFeedCommentComponent key={commentData.feed_comment_id} feed_id={data.feed_id} userName={commentData.user_id} feed_comment_id={commentData.feed_comment_id} commentContents={commentData.feed_comment}/>
                             }
                         }) : null}
                     </div>

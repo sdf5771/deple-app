@@ -14,7 +14,6 @@ function AsideBar() {
             method: 'GET', // 또는 'PUT'
         }) // throw new Error('Network response was not ok.');
             .then((response) => {
-                console.log('response ', response);
                 if(response.ok){
                     return response.json();
                 }
@@ -53,7 +52,7 @@ function AsideBar() {
                 </div>
                 <div className={styles.asideBarBody}>
                     {userList ? userList.map((userData, idx) => {
-                        return <UserShortCutComponent userName={userData.id} />
+                        return <UserShortCutComponent key={idx} userName={userData.id} />
                     }) : null}
                 </div>
             </div>

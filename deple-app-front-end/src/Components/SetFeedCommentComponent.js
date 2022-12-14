@@ -15,6 +15,7 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
     const [feedMenuBtnOnClick, setFeedMenuBtnOnClick] = useState(false);
     const feedCommentModifyBtnClick = useSelector(state => state.feedCommentModifyBtnClickReducer);
     const feedCommentInputRef = useRef();
+    const commentModifyBtnClickDispatch = useDispatch();
 
     useEffect(() => {
         setFeedCommentVal(commentContents);
@@ -22,11 +23,16 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
 
     //Feed Comment Modify Click Effect
     useEffect(() => {
+        console.log('feedCommentModifyBtnClick.isClick ', feedCommentModifyBtnClick.isClick)
         if(feedCommentModifyBtnClick.isClick){
             if(feed_comment_id === feedCommentModifyBtnClick.commentData.feed_comment_id){
+                console.log('focus logic')
                 feedCommentInputRef.current.readOnly = false;
                 feedCommentInputRef.current.focus();
             }
+        } else {
+            feedCommentInputRef.current.readOnly = true;
+            feedCommentInputRef.current.blur();
         }
     }, [feedCommentModifyBtnClick.isClick])
 
@@ -38,8 +44,6 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
             feed_comment_id: feedCommentModifyBtnClick.commentData.feed_comment_id,
         }
 
-        console.log('updateData ', updateData);
-
         fetch(`/update_comment`, { //${"http://localhost:13000"}
             method: 'POST', // 또는 'PUT'
             headers: {
@@ -48,14 +52,12 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
             body: JSON.stringify(updateData),
         }) // throw new Error('Network response was not ok.');
             .then((response) => {
-                console.log('response ', response);
                 if(response.ok){
                     return response.json();
                 }
                 throw new Error('Network response was not ok.');
             })
             .then((data) => {
-                console.log('성공: update comment ', data);
                 if(data.message === '200 ok'){
 
                     return
@@ -88,6 +90,7 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
     }
 
     const feedCommentInputFocusOutHandler = (event) => {
+        commentModifyBtnClickDispatch({ type : 'feedCommentModifyBtn click false'});
         event.target.readOnly = true;
     }
 
@@ -105,7 +108,7 @@ function SetFeedCommentComponent({feed_id, userName , feed_comment_id, commentCo
                     <span>{userName}</span>
                 </div>
                 <div className={styles.feed_comment_input_container}>
-                    <input id="feedCommentInput" ref={feedCommentInputRef} readOnly="true" value={feedCommentVal}
+                    <input id="feedCommentInput" ref={feedCommentInputRef} readOnly={true} value={feedCommentVal}
                            onBlur={feedCommentInputFocusOutHandler}
                            onKeyDown={feedCommentInputKeyDownHandler}
                            onChange={feedCommentInputOnChangeHandler}

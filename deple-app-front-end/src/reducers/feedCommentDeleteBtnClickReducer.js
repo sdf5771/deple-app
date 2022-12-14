@@ -1,16 +1,16 @@
-function feedCommentModifyBtnClickReducer(currentState, action){
+function feedCommentDeleteBtnClickReducer(currentState, action){
     if(currentState === undefined){
         return {isClick : false};
     }
     const newState = {...currentState};
 
     switch (action.type){
-        case 'feedCommentModifyBtn click true' :
+        case 'feedCommentDeleteBtn click true' :
             newState.isClick = true;
             newState.commentData = action.data;
             break;
 
-        case 'feedCommentModifyBtn click false' :
+        case 'feedCommentDeleteBtn click false' :
             newState.isClick = false;
             break;
     }
@@ -18,4 +18,4 @@ function feedCommentModifyBtnClickReducer(currentState, action){
     return newState
 }
 
-export default feedCommentModifyBtnClickReducer;
+export default feedCommentDeleteBtnClickReducer;
