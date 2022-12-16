@@ -7,9 +7,11 @@ import LoginCheck from "../../Components/LoginCheck";
 import { useSelector, useDispatch } from 'react-redux';
 import {CreateFeedModal} from '../../Components/CreateFeed';
 import AsideBar from "../../Components/AsideBar";
+import PublicOkCancelModal from "../../Components/PublicOkCancelModal";
 
 function MainApp() {
     const createFeedModalClick = useSelector(state => state.createFeedModalClickReducer);
+    const feedCommentDeleteBtnClick = useSelector(state => state.feedCommentDeleteBtnClickReducer);
     let loginToken = LoginCheck();
     if(loginToken){
         if(loginToken.auth === 'yes'){
@@ -23,6 +25,7 @@ function MainApp() {
                         <AsideBar />
                     </div>
                     {createFeedModalClick.isClick ? <CreateFeedModal /> : null}
+                    {feedCommentDeleteBtnClick.isClick ? <PublicOkCancelModal textContent="해당 댓글을 삭제하시겠습니까?" /> : null}
                 </div>
             );
         } else {
