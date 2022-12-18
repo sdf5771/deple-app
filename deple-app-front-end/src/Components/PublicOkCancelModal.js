@@ -10,6 +10,9 @@ function PublicOkCancelModal({textContent}){
         const modalRootNode = modalRootRef.current;
         modalRootNode.classList.add(styles.open);
         console.log('modalRootNode ', modalRootNode);
+        setTimeout(()=>{
+            setIsOpen(true);
+        },350)
         // return () => {
         //     modalRootNode.classList.remove(styles.open);
         //     modalRootNode.classList.add(styles.close);
@@ -17,12 +20,15 @@ function PublicOkCancelModal({textContent}){
     }, [])
 
     return (
-        <div ref={modalRootRef} className={styles.ok_cancel_modal_root}>
-            <div className={isOpen ? null : publicStyles.display_none}>
-                <div><span>{textContent}</span></div>
-                <div>
-                    <div className={styles.ok_cancel_modal_ok_btn_container}><div className={styles.ok_cancel_modal_ok_btn_img}></div></div>
-                    <div className={styles.ok_cancel_modal_cancel_btn_container}><div className={styles.ok_cancel_modal_cancel_btn_img}></div></div>
+        <div id="okCancelModal">
+            <div className={styles.modal_background}></div>
+            <div ref={modalRootRef} className={styles.ok_cancel_modal_root}>
+                <div className={isOpen ? styles.ok_cancel_modal_body : publicStyles.display_none}>
+                    <div className={styles.text_content_container}><span>{textContent}</span></div>
+                    <div className={styles.btn_container}>
+                        <div className={styles.ok_cancel_modal_ok_btn_container}><div className={styles.ok_cancel_modal_ok_btn_img}></div></div>
+                        <div className={styles.ok_cancel_modal_cancel_btn_container}><div className={styles.ok_cancel_modal_cancel_btn_img}></div></div>
+                    </div>
                 </div>
             </div>
         </div>
