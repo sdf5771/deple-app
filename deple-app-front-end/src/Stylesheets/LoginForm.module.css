@@ -132,3 +132,68 @@
     color: #fff;
     cursor: pointer;
 }
+
+/*JoinUsFormRoot*/
+.forgot_password_form_root{
+    position: absolute;
+    /*right: 500px;*/
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+    transition: all 0.4s ease;
+}
+.forgot_password_form_header{
+    margin-top: 40px;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+}
+.forgot_password_form_header > span{
+    font-size: 2rem;
+    font-family: monospace;
+    font-weight: 600;
+    color: black;
+}
+.forgot_password_form_body{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 40px);
+    height: calc(100% - 66px - 40px);
+}
+.forgot_password_form_input_container{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.forgot_password_form_btn_container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.forgot_password_button{
+    width: 300px;
+    height: 40px;
+    border-radius: 8px;
+    border: 0;
+    outline: none;
+    background-color: #eeeeee;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+.forgot_password_button:hover{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
+}
+.forgot_password_button:active{
+    background-color: #5881C0;
+    color: #fff;
+    cursor: pointer;
+}

@@ -13,6 +13,7 @@ function LoginForm() {
     const formList = {
         0: <LoginFormRoot />,
         1: <JoinUsFormRoot />,
+        2: <ForgotPasswordRoot />,
     }
 
     function joinUsClickHandler(event){
@@ -38,7 +39,31 @@ function LoginForm() {
                 })
             },1)
         },400)
+    }
 
+    function forgotPasswordClickHandler(event){
+        document.getElementById('loginFormRoot').animate({
+            right:['0', '500px']
+        }, {
+            duration: 400,
+            easing: "ease",
+            iterations: 1,
+            fill: "both"
+        })
+        setTimeout( function (){
+            setFormState(2);
+
+            setTimeout(function(){
+                document.getElementById('forgotPasswordFormRoot').animate({
+                    opacity: [0, 1]
+                }, {
+                    duration: 400,
+                    easing: "ease",
+                    iterations: 1,
+                    fill: "both"
+                })
+            }, 1)
+        }, 400)
     }
 
     async function loginBtnOnClickHandler(event){
@@ -127,7 +152,7 @@ function LoginForm() {
                         }}/>
                         <div className={styles.login_form_btn_container} style={{gap: '20px', marginTop: '20px'}}>
                             <span id='JoinUsBtn' onClick={joinUsClickHandler}>Join Us</span>
-                            <span>Forgot your password</span>
+                            <span id='forgotPassword' onClick={forgotPasswordClickHandler}>Forgot your password</span>
                         </div>
                         <div className={styles.login_form_btn_container}>
                             <button id="btnLogin" onClick={loginBtnOnClickHandler} className={styles.login_button}>LOGIN</button>
@@ -260,7 +285,8 @@ function LoginForm() {
     }
 
     function goLoginClickHandler(event){
-        document.getElementById('joinUsFormRoot').animate({
+        let activeForm = formState === 1 ? 'joinUsFormRoot' : 'forgotPasswordFormRoot';
+        document.getElementById(activeForm).animate({
             right:['0', '500px']
         },{
             duration: 400,
@@ -303,6 +329,71 @@ function LoginForm() {
                     </div>
                     <div className={styles.join_us_form_btn_container} style={{ marginTop: '20px'}}>
                         <button id="goLoginBtn" onClick={goLoginClickHandler} className={styles.join_us_button}>LOGIN PAGE</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    async function findUserPasswordFetch(){
+        const forgotPasswordIdInputVal = document.querySelector('#forgotPasswordIdInput > input').value;
+        const forgotPasswordMailInputVal = document.querySelector('#forgotPasswordMailInput > input').value;
+
+        let findUserPasswordData = {
+            userId: forgotPasswordIdInputVal,
+            userEmail: forgotPasswordMailInputVal,
+        }
+
+        await fetch(`/findUserPassword`, {
+            method: 'POST', // 또는 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(findUserPasswordData),
+        }) // throw new Error('Network response was not ok.');
+            .then((response) => {
+                console.log('response ', response);
+                if(response.ok){
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then((data) => {
+                console.log('성공:', data);
+                if(data.message === '생성완료'){
+                    PublicMessageBox('비밀번호 찾기에 성공했어요. 해당 비밀번호를 확인해주세요.');
+
+                    document.querySelector('#goLoginBtn').click();
+                } else {
+                    PublicMessageBox('비밀번호를 찾기에 실패했어요. 회원 정보를 확인해주세요.');
+                }
+            })
+            .catch((error) => {
+                console.error('실패:', error);
+                PublicMessageBox('비밀번호를 찾기에 실패했어요.');
+            });
+    }
+
+    async function forgotPasswordSubmitFormClickHandler(event){
+
+    }
+
+    function ForgotPasswordRoot(){
+        return(
+            <div id='forgotPasswordFormRoot' className={styles.forgot_password_form_root}>
+                <div className={styles.forgot_password_form_header}>
+                    <span style={{marginLeft: '20px'}}>Forgot Your Password ?</span>
+                </div>
+                <div className={styles.forgot_password_form_body}>
+                    <div className={styles.forgot_password_form_input_container}>
+                        <PublicInput InputId='forgotPasswordIdInput' Type="id" PlaceHolder='Account' />
+                        <PublicInput InputId='forgotPasswordMailInput' Type="mail" PlaceHolder='E-Mail'/>
+                    </div>
+                    <div className={styles.forgot_password_form_btn_container} style={{ marginTop: '20px' }}>
+                        <button onClick={forgotPasswordSubmitFormClickHandler} className={styles.forgot_password_button}>SUBMIT FORM</button>
+                    </div>
+                    <div className={styles.forgot_password_form_btn_container} style={{ marginTop: '20px' }}>
+                        <button id="goLoginBtn" onClick={goLoginClickHandler} className={styles.forgot_password_button}>LOGIN PAGE</button>
                     </div>
                 </div>
             </div>
