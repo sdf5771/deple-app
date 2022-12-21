@@ -99,6 +99,12 @@ class update_comment(BaseModel):
 class select_comment(BaseModel):
     feed_id: int
 
+class deleteComment(BaseModel):
+    feed_id: str
+    user_id: str
+    feed_comment_id: str
+
+
 @app.post("/login")
 async def login(login_id: login_id):
     sql= f'SELECT * FROM people WHERE id = \'{login_id.id}\' and pw = \'{login_id.pw}\''
@@ -186,8 +192,19 @@ def up_comment(update_comment: update_comment):
         sql = f'update feed_comment set feed_comment = \'{update_comment.feed_comment}\', _edit = \'{now_t()}\' where feed_comment_id = \'{update_comment.feed_comment_id}\' AND feed_id = \'{update_comment.feed_id}\';'
         DB_instance = db_api()
         DB_instance.create(sql=sql, db_name='Feed')
-        sql= 'SELECT feed_id, feed_comment, user_id, _edit FROM feed_comment ORDER BY feed_comment_id desc;'
-        DB_instance = db_api()  
+    except Exception as e:
+        return e
+    return jsonable_encoder({'message':'200 ok'})
+
+@app.post("/deleteComment")
+def up_comment(deleteComment: deleteComment):
+    feed_id: str
+    user_id: str
+    feed_comment_id: str
+    try:
+        sql = f'delete FROM feed_comment where feed_id = \'{deleteComment.feed_id}\' AND user_id = \'{deleteComment.user_id}\' AND feed_comment_id =  \'{deleteComment.feed_comment_id}\';'
+        DB_instance = db_api()
+        DB_instance.create(sql=sql, db_name='Feed')
     except Exception as e:
         return e
     return jsonable_encoder({'message':'200 ok'})
