@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import propTypes from 'prop-types';
 import styles from '../Stylesheets/SetFeedComponent.module.css';
 import publicStyles from '../Stylesheets/PublicStyle.module.css';
@@ -13,8 +13,15 @@ function SetFeedComponent({data}){
     const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const [feedCommentData, setFeedCommentData] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
+    const feedCommentDeleteData = useSelector(state => state.feedCommentDeleteBtnClickReducer);
 
     console.log('prop ', data)
+
+    const handleCommentComponentRemove = () => {
+        const newFeedCommentData = feedCommentData.filter((commentItem) => commentItem.feed_comment_id !== feedCommentDeleteData.commentData.feed_comment_id);
+
+        setFeedCommentData(newFeedCommentData);
+    }
 
     const feedCommentCreateOnClickHandler = async (event) => {
         setCommentCreateClick(!commentCreateClick);
