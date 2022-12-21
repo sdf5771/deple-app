@@ -198,9 +198,6 @@ def up_comment(update_comment: update_comment):
 
 @app.post("/deleteComment")
 def up_comment(deleteComment: deleteComment):
-    feed_id: str
-    user_id: str
-    feed_comment_id: str
     try:
         sql = f'delete FROM feed_comment where feed_id = \'{deleteComment.feed_id}\' AND user_id = \'{deleteComment.user_id}\' AND feed_comment_id =  \'{deleteComment.feed_comment_id}\';'
         DB_instance = db_api()
