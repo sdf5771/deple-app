@@ -2,55 +2,23 @@ import json
 import os
 import uvicorn
 import app
-#html test
 
 from fastapi.responses import HTMLResponse
-
-
 from enum import Enum
-from app.DB.db_config import db_api
-from app.Controller.util import now_t
 from fastapi import FastAPI ,File, UploadFile, Request , Form
 from fastapi.encoders import jsonable_encoder
-from uuid import uuid4
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
+from uuid import uuid4
 from pydantic import BaseModel
 from typing import List
-
-
 from fastapi.templating import Jinja2Templates
 
+from app.DB.db_config import db_api
+from app.Controller.util import now_t
+from app.Model.Model import login_id, create_id, create_feed, create_comment, update_comment, select_comment, deleteComment
+
 app = FastAPI()
-# templates = Jinja2Templates(directory='templates')
-
-# @app.get("/items/{id}", response_class=HTMLResponse)
-# async def read_item(request: Request, id: str):
-#     print(request)
-#     return templates.TemplateResponse("index.html", {"request": request, "id": id})
-
-# @app.post("/image_upload", response_class=HTMLResponse)
-# def read_item(file: UploadFile = File(...)):
-#         # # n_age: int = Form(...)):
-#         # print(password)
-#         # print(user_id)
-        
-#         # return "ok"
-#         file_urls=[]
-#         if len(file_urls) > 3:
-#             return False
-#         IMG_DIR = 'app/'
-#         file_path = []
-#         for _file in file:
-#             currentTime = '2022-11-12'
-#             saved_file_name = ''.join([currentTime, str(uuid4())])
-#             # saved_file_name.replace(':','')
-#             print(saved_file_name)
-#             file_location = os.path.join(IMG_DIR, saved_file_name)
-#             with open(file_location, "wb+") as file_object:
-#                 file_object.write(file.file.read())
-#                 file_path.append(file_location)
-#         return file_path
 
 async def upload_board(in_files: List[bytes] = File(...)):
     file_urls=[]
@@ -67,43 +35,6 @@ async def upload_board(in_files: List[bytes] = File(...)):
             file_object.write(file.file.read())
             file_path.append(file_location)
     return file_path
-
-
-class login_id(BaseModel):
-    id: str
-    pw: str
-
-class create_id(BaseModel):
-    userId: str
-    userPw: str
-    name: str
-    mail: str
-    contact: str
-
-class create_feed(BaseModel):
-    create_user: str
-    feed_content: str
-    # file: List[UploadFile]
-
-class create_comment(BaseModel):
-    feed_id: str
-    user_id: str
-    feed_comment: str
-
-class update_comment(BaseModel):
-    feed_id: str
-    user_id: str
-    feed_comment: str
-    feed_comment_id: str
-
-class select_comment(BaseModel):
-    feed_id: int
-
-class deleteComment(BaseModel):
-    feed_id: str
-    user_id: str
-    feed_comment_id: str
-
 
 @app.post("/login")
 async def login(login_id: login_id):
@@ -135,7 +66,6 @@ async def make_feed(create_feed: create_feed):
     #     return jsonable_encoder({'message':'이미지 파일 3개 이상은 안됩니다.'})
     try:
         sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'{create_feed.create_user}\',\'{create_feed.feed_content}\', \'{img_path}\')'
-        # sql = f'INSERT INTO `Feed`.`feed`(user_id, content, image_path) VALUES(\'병익\',\'is_back\', \'{img_path}\')'
         DB_instance = db_api()
         DB_instance.create(sql=sql, db_name='Feed')
         sql= 'SELECT * FROM feed ORDER BY feed_id desc'
@@ -174,7 +104,6 @@ def feed_select(select_comment: select_comment):
 
 @app.post("/create_comment")
 def cr_comment(create_comment: create_comment):
-    # feed_comment_id, feed_id,  user_id, comment, _eidt , _created;
     try:
         sql = f'INSERT INTO `Feed`.`feed_comment`(feed_id, user_id, feed_comment, _edit) VALUES(\'{create_comment.feed_id}\', \'{create_comment.user_id}\', \'{create_comment.feed_comment}\', \'{now_t()}\')'
         DB_instance = db_api()
@@ -187,7 +116,6 @@ def cr_comment(create_comment: create_comment):
 
 @app.post("/update_comment")
 def up_comment(update_comment: update_comment):
-    # feed_comment_id, feed_id,  user_id, comment, _eidt , _created;
     try:
         sql = f'update feed_comment set feed_comment = \'{update_comment.feed_comment}\', _edit = \'{now_t()}\' where feed_comment_id = \'{update_comment.feed_comment_id}\' AND feed_id = \'{update_comment.feed_id}\';'
         DB_instance = db_api()
