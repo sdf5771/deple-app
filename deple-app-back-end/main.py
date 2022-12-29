@@ -7,34 +7,12 @@ from fastapi.responses import HTMLResponse
 from enum import Enum
 from fastapi import FastAPI ,File, UploadFile, Request , Form
 from fastapi.encoders import jsonable_encoder
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi import HTTPException
-from uuid import uuid4
-from pydantic import BaseModel
-from typing import List
-from fastapi.templating import Jinja2Templates
 
 from app.DB.db_config import db_api
 from app.Controller.util import now_t
 from app.Model.Model import login_id, create_id, create_feed, create_comment, update_comment, select_comment, deleteComment
 
 app = FastAPI()
-
-async def upload_board(in_files: List[bytes] = File(...)):
-    file_urls=[]
-    if len(file_urls) > 3:
-        return False
-    IMG_DIR = 'app/'
-    file_path = []
-    for file in in_files:
-        print(file)
-        currentTime = now_t()
-        saved_file_name = ''.join([currentTime, str(uuid4())])
-        file_location = os.path.join(IMG_DIR, saved_file_name)
-        with open(file_location, "wb+") as file_object:
-            file_object.write(file.file.read())
-            file_path.append(file_location)
-    return file_path
 
 @app.post("/login")
 async def login(login_id: login_id):
@@ -100,7 +78,6 @@ def feed_select(select_comment: select_comment):
         return jsonable_encoder({'comment_req': DB_instance.select(sql=sql, db_name='Feed'), 'message':'200 ok'})
     except Exception as e:
         return e
-
 
 @app.post("/create_comment")
 def cr_comment(create_comment: create_comment):
